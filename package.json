@@ -1,0 +1,25 @@
+{
+  "name": "queue-for-two",
+  "version": "1.0.0",
+  "description": "301 Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Twandalon/Queue-for-Two.git"
+  },
+  "author": "Aaron, Katherine H, Katherine P, Anthony",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Twandalon/Queue-for-Two/issues"
+  },
+  "homepage": "https://github.com/Twandalon/Queue-for-Two#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "pg": "^7.0.2"
+  }
+}
