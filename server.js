@@ -7,7 +7,6 @@
 // url_string text
 // );
 
-
 //SQL query to create customer table.
 
 // CREATE TABLE IF NOT EXISTS Customer (
@@ -18,7 +17,6 @@
 // email VARCHAR(255)
 // );
 
-
 // SQL query to insert a row into Media
 
 // INSERT INTO Media
@@ -27,6 +25,36 @@
 // );
 
 // SQL query to insert a row into Customer
+
 // INSERT INTO Customer
 // (username, password, name, email)
 // VALUES ('carrieH','lilies','Carrie Hans', 'carriehans@gmail.com');
+
+// SQL Query to create associative table
+// Customers_Medias, ensuring that a customer
+// cannot add the same title to their queue twice
+
+// CREATE TABLE IF NOT EXISTS Customers_Medias (
+// customer_id INT REFERENCES Customer(customer_id),
+// media_id INT REFERENCES Media(media_id),
+// CONSTRAINT queue_item UNIQUE (customer_id, media_id));
+
+// Insert values into Customers_Medias table
+
+// INSERT INTO Customers_Medias
+// (customer_id, media_id)
+// VALUES (1,5);
+
+// Query selecting all queue items two customers
+// have in common
+
+// SELECT customer_id, media_id
+// FROM Customers_Medias
+// WHERE media_id IN
+// (SELECT media_id
+// FROM Customers_Medias
+// GROUP BY media_id
+// HAVING COUNT(*) > 1);
+
+// To select usernames from Customer table
+// SELECT username FROM Customer;
