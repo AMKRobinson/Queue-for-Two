@@ -80,7 +80,7 @@
           <a href="/article/{{article_id}}" class="read-on">Read on &rarr;</a>
       </article>
   </script>
-  
+
   <div class="container">
     <div class="row">
       <div class="one-half column" style="margin-top: 25%">
@@ -139,10 +139,10 @@
   <form class="findAMovie">FIND A MOVIE
     <label id="findAMovieLabel">
        Movie Title:
-      <input type="text" name="movieSearch" size="30" maxlength="100" placeholder="Enter Here">
+      <input type="text" id="movieSearch" size="30" maxlength="100" value="">
     </label>
     <label>
-      <button type="submit" class="searchMoviesButton">SEARCH</button>
+      <input type="submit" id="searchMoviesButton">SEARCH</input>
     </label>
   </form>
 
@@ -151,7 +151,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- local scripts -->
+  <script src="api.js" type="text/javascript"></script>
   <script src="scripts/app.js" type="text/javascript"></script>
+
+  <!-- <script src="scripts/search.js" type="text/javascript"></script> -->
+
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
