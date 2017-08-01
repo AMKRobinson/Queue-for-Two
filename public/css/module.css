@@ -15,3 +15,11 @@ button:hover {
 button:active {
   background-color: yellow;
 }
+
+.loginButton {
+z-index: auto;
+}
+
+.signUpButton {
+z-index: auto;
+}
