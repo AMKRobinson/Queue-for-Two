@@ -36,20 +36,6 @@
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <script id="article-template" type="text/x-handlebars-template">
-      <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
-        <header>
-          <h1>{{title}}</h1>
-          <div class="byline">
-            By <address><a href="{{authorUrl}}">{{author}}</a></address>
-            {{publishStatus}}
-          </div>
-        </header>
-        <section class="article-body">{{{body}}}</section>
-          <a href="/article/{{article_id}}" class="read-on">Read on &rarr;</a>
-      </article>
-  </script>
-
   <div class="container">
     <div class="row">
       <div class="one-half column" style="margin-top: 25%">
@@ -109,7 +95,7 @@
       <input type="text" id="movieSearch" size="30" maxlength="100" value="">
     </label>
     <label>
-      <input type="submit" id="searchMoviesButton">SEARCH</input>
+      <input type="submit" id="searchMoviesButton"></input>
     </label>
   </form>
 
@@ -120,9 +106,6 @@
   <!-- local scripts -->
   <script src="api.js" type="text/javascript"></script>
   <script src="scripts/app.js" type="text/javascript"></script>
-
-  <!-- <script src="scripts/search.js" type="text/javascript"></script> -->
-
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->

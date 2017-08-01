@@ -23,13 +23,13 @@ $('.loginButton').on('click', function(event) {
   $('.signUpButton').on('click', function(event) {
     event.preventDefault();
 
-  $('.signUpButton').on('click', function() {
+    $('.signUpButton').on('click', function() {
 
-    $('.userSignUpForm').fadeIn(700);
-    $('.signUpButton2').fadeIn(700);
-    $('.loginButton').fadeOut(700);
-    $('.signUpButton').fadeOut(700);
-  });
+      $('.userSignUpForm').fadeIn(700);
+      $('.signUpButton2').fadeIn(700);
+      $('.loginButton').fadeOut(700);
+      $('.signUpButton').fadeOut(700);
+    });
   })
 
   // $('.yourTitlesButton').hide();
@@ -154,4 +154,3 @@ $('.signUpButton').on('click', function() {
   $('.loginButton').fadeOut(700);
   $('.signUpButton').fadeOut(700);
 });
-
