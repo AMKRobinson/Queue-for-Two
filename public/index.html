@@ -27,6 +27,31 @@
   <link rel="stylesheet" href="css/module.css">
   <link rel="stylesheet" href="css/state.css">
 
+
+  <!--hamburger menu icomoon
+  ___________________________________________________-->
+  <link rel="stylesheet" href="https://i.icomoon.io/public/temp/0beb95f088/UntitledProject/style-svg.css">
+  <script defer src="https://i.icomoon.io/public/temp/0beb95f088/UntitledProject/svgxuse.js"></script>
+  <button class="icon-button"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg></button>
+
+  <!--hamburger buttons-->
+  <button class="hamburgerButtons" id="yourTitlesButton">YOUR TITLES</button>
+  <button class="hamburgerButtons" id="othersTitlesButton">OTHERS' TITLES</button>
+  <button class="hamburgerButtons" id="aboutUsButton">ABOUT US</button>
+  <button class="hamburgerButtons" id="findMovieButton">FIND A MOVIE</button>
+
+  <!--YOUR TITLES-->
+  <h3 class="yourTitlesCap">YOUR TITLES</h3>
+  <div class="titlesMessage">COLLECT YOUR TO-WATCH LIST ON THIS PAGE.</div>
+
+  <!--OTHERS' TITLES-->
+  <h4 class="othersTitlesCap">OTHERS' TITLES</h4>
+  <div class="othersTitlesMessage">CLICK ON A USER TO VIEW YOUR SHARED TITLES.</div>
+
+  <!--ABOUT US-->
+  <div class="aboutUsCap"><h5>ABOUT US</h5></div>
+
+
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
@@ -36,6 +61,12 @@
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <div class="container">
+    <div class="row">
+      <div class="one-half column">
+        <h1>Queue for Two</h1>
+
   <script id="article-template" type="text/x-handlebars-template">
       <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
         <header>
@@ -54,6 +85,7 @@
     <div class="row">
       <div class="one-half column" style="margin-top: 25%">
         <h4>Queue for Two</h4>
+
       </div>
     </div>
   </div>
@@ -101,6 +133,20 @@
         <button type="submit" class="signUpButton2">Sign Up</button>
     </fieldset>
   </form>
+
+
+  <!--Find A Movie Form-->
+  <form class="findAMovie">FIND A MOVIE
+    <label id="findAMovieLabel">
+       Movie Title:
+      <input type="text" name="movieSearch" size="30" maxlength="100" placeholder="Enter Here">
+    </label>
+    <label>
+      <button type="submit" class="searchMoviesButton">SEARCH</button>
+    </label>
+  </form>
+
+
   <!-- vendor scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="/path/to/sha.js"></script>

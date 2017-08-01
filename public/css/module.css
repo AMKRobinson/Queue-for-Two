@@ -1,0 +1,25 @@
+.icon-menu{
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+button:hover {
+  color: red;
+  background-color: grey;
+}
+
+button:active {
+  background-color: yellow;
+}
+
+.loginButton {
+z-index: auto;
+}
+
+.signUpButton {
+z-index: auto;
+}
