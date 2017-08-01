@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/module.css">
   <link rel="stylesheet" href="css/state.css">
 
+
   <!--hamburger menu icomoon
   ___________________________________________________-->
   <link rel="stylesheet" href="https://i.icomoon.io/public/temp/0beb95f088/UntitledProject/style-svg.css">
@@ -50,6 +51,7 @@
   <!--ABOUT US-->
   <div class="aboutUsCap"><h5>ABOUT US</h5></div>
 
+
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
@@ -59,10 +61,31 @@
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
   <div class="container">
     <div class="row">
       <div class="one-half column">
         <h1>Queue for Two</h1>
+
+  <script id="article-template" type="text/x-handlebars-template">
+      <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
+        <header>
+          <h1>{{title}}</h1>
+          <div class="byline">
+            By <address><a href="{{authorUrl}}">{{author}}</a></address>
+            {{publishStatus}}
+          </div>
+        </header>
+        <section class="article-body">{{{body}}}</section>
+          <a href="/article/{{article_id}}" class="read-on">Read on &rarr;</a>
+      </article>
+  </script>
+  
+  <div class="container">
+    <div class="row">
+      <div class="one-half column" style="margin-top: 25%">
+        <h4>Queue for Two</h4>
+
       </div>
     </div>
   </div>
@@ -111,6 +134,7 @@
     </fieldset>
   </form>
 
+
   <!--Find A Movie Form-->
   <form class="findAMovie">FIND A MOVIE
     <label id="findAMovieLabel">
@@ -121,6 +145,7 @@
       <button type="submit" class="searchMoviesButton">SEARCH</button>
     </label>
   </form>
+
 
   <!-- vendor scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
