@@ -23,7 +23,7 @@ $('.signUpButton').on('click', function() {
 //     // may need ?
 //
 //     // construct the uri with our apikey
-//     var moviesSearchUrl = baseUrl + 'search/movie?api_key=' + '839d7feb4f5bcc5ced3921f101e4dfdc';
+//     var moviesSearchUrl = baseUrl + 'search/movie?api_key=' + '';
 //     var query = "Gone With The Wind";
 //
 //
