@@ -57,4 +57,5 @@
 // HAVING COUNT(*) > 1);
 
 // To select usernames from Customer table
+
 // SELECT username FROM Customer;
