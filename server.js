@@ -9,3 +9,16 @@
 // name VARCHAR(255),
 // email VARCHAR(255)
 // );
+
+// SQL Query to create show table
+
+// CREATE TABLE IF NOT EXISTS Show (
+// showId SERIAL PRIMARY KEY,
+// urlString text
+// );
+
+// SQL query to create movie table
+// CREATE TABLE IF NOT EXISTS Movie (
+// movieId SERIAL PRIMARY KEY,
+// urlString text
+// );
