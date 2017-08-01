@@ -45,12 +45,15 @@
 // (customer_id, media_id)
 // VALUES (1,5);
 
-// Query selecting all queue items two customers
+// Query selecting url_strings for all
+// queue items two customers
 // have in common
 
-// SELECT customer_id, media_id
-// FROM Customers_Medias
-// WHERE media_id IN
+// SELECT DISTINCT url_string
+// FROM Media
+// INNER JOIN Customers_Medias
+// ON Media.media_id = Customers_Medias.media_id
+// WHERE Customers_Medias.media_id IN
 // (SELECT media_id
 // FROM Customers_Medias
 // GROUP BY media_id
