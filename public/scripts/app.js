@@ -227,14 +227,14 @@ $('#searchMoviesButton').on('click', function(event) {
   var query = $('#movieSearch').val();
 
 //need to use external API!!
-  var settings = {
-    'async': true,
-    'crossDomain': true,
-    'url': 'https://api.themoviedb.org/3/search/multi?language=en-US&page=1&include_adult=false&api_key=' + `${THEMOVIEDB_TOKEN}` + '&query=' + encodeURI(query),
-    'method': 'GET',
-    'headers': {},
-    'data': '{}'
-  };
+  // var settings = {
+  //   'async': true,
+  //   'crossDomain': true,
+  //   'url': 'https://api.themoviedb.org/3/search/multi?language=en-US&page=1&include_adult=false&api_key=' + `${THEMOVIEDB_TOKEN}` + '&query=' + encodeURI(query),
+  //   'method': 'GET',
+  //   'headers': {},
+  //   'data': '{}'
+  // };
 
   var template = Handlebars.compile($('.handlebarTemplate').text());
 
@@ -246,7 +246,7 @@ $('#searchMoviesButton').on('click', function(event) {
   });
 
   $('#out').html('');
-  $.ajax(settings).done(function (response) {
+  $.get('/themoviedb', {data: encodeURI(query)}).done(function (response) {
     console.log(response);
     let weird = (results) => {
       response.results.map(response => {

@@ -4,6 +4,7 @@ const pg = require('pg');
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
+const request = require('superagent');
 const requestProxy = require('express-request-proxy');
 
 const PORT = process.env.PORT || 4000;
@@ -19,13 +20,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 // This function is a proxy method that acts as middleware for our Github API request. We need it to send our request for the API and call back the response while obfuscating our GITHUB_TOKEN value. It receives a request from the client.
-function proxyMovieDB(request, response) {
-  console.log('Routing MovieDB request for', request.params[0]);
-  (requestProxy({
-    url: `https://api.themoviedb.org/${request.params[0]}`,
-    headers: {Authorization: `token ${process.env.THEMOVIEDB_TOKEN}`}
-  }))(request, response);
-}
+
+// function proxyMovieDB(request, response) {
+//   console.log('Routing MovieDB request for', request.params[0]);
+//   (requestProxy({
+//     url: `https://api.themoviedb.org/3/search/multi?language=en-US&page=1&include_adult=false&api_key=${process.env.THEMOVIEDB_TOKEN}&query=${request.query.data}`,
+//   }))(request, response);
+// }
 
 // This route, the app.get('/', etc) route, is a route that will send a request to fetch index.html's content for the web app. It receives a request from the HTML triggered by the user.
 app.get('/', (request, response) => response.sendFile('index.html', {root: './public'}));
@@ -36,7 +37,22 @@ app.get('/your-titles', (request, response) => response.sendFile('index.html', {
 app.get('/others-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
 app.get('/shared-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
 app.get('/about-us', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/themoviedb/*', proxyMovieDB);
+app.get('/themoviedb', (req, res) => {
+
+  request
+  .get('https://api.themoviedb.org/3/search/multi')
+  .query({
+    language: 'en-US',
+    page: 1,
+    include_adult: false,
+    api_key: process.env.THEMOVIEDB_TOKEN,
+    query: req.query.data
+  })
+  .then(data => {
+    res.json(data.body)
+  })
+  .catch(console.error)
+});
 
 // route for gathering all of the users from our Customers table
 app.get('/users', (request, response) => {
