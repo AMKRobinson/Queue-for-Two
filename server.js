@@ -4,7 +4,8 @@ const pg = require('pg');
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
-const requestProxy = require('express-request-proxy'); // REVIEW: We've added a new package here to our requirements, as well as in the package.json
+const requestProxy = require('express-request-proxy');
+
 const PORT = process.env.PORT || 4000;
 const app = express();
 // const conString = 'postgres://USERNAME:PASSWORD@HOST:PORT';
@@ -64,23 +65,28 @@ app.post('/customers', function(request, response) {
   client.query(
     'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
     [request.body.username,
-    request.body.password,
-    request.body.name,
-    request.body.email],
+      request.body.password,
+      request.body.name,
+      request.body.email],
     function(err) {
       if (err) console.error(err)
+      response.send('insert complete');
     }
   )
+});
 
 // route for inserting customer_id for Customer and media_id for media Customer selects into Customers_Media table
+
 app.post('/customers-media', function(request, response) {
   client.query(
-    'INSERT INTO Customers_Media (customer_id, media_id) VALUES ($1,$2);',
+    'INSERT INTO Customers_Media (customer_id, media_id) VALUES ($1,$2) ON CONFLICT DO NOTHING',
     [request.body.customer_id, request.body.media_id],
     function(err) {
       if (err) console.error(err)
+      response.send('insert complete');
     }
   )
+});
 
 loadDB();
 
