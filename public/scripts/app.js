@@ -119,24 +119,62 @@ $('.loginButton').on('click', function(event) {
     $('.findAMovie').fadeIn(700);
   });
 })
-
 $('#searchMoviesButton').on('click', function (event) {
   event.preventDefault();
+
   var query = $('#movieSearch').val();
 
+//need to use external API!!
   var settings = {
     'async': true,
     'crossDomain': true,
-    'url': 'https://api.themoviedb.org/3/search/movie?api_key=' + `${THEMOVIEDB_TOKEN}` + '&query=' + encodeURI(query),
+    'url': 'https://api.themoviedb.org/3/search/multi?language=en-US&page=1&include_adult=false&api_key=' + `${THEMOVIEDB_TOKEN}` + '&query=' + encodeURI(query),
     'method': 'GET',
     'headers': {},
     'data': '{}'
   };
 
+  var template = Handlebars.compile($('.handlebarTemplate').text());
+
+//this shortens the date which is in YYYY-MM-DD to just YYYY
+  Handlebars.registerHelper('tvD', function(date) {
+  if (date && date.length > 4)
+    return date.substring(0,4);
+  return date;
+});
+
+  $('#out').html('');
   $.ajax(settings).done(function (response) {
     console.log(response);
+    let weird = (results) => {
+      response.results.map(response => {
+        //should be able to .on click gather id info for DB
+      var info = {id: response.id, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
+      console.log(info)
+      $('#out').append(template(info))
+  })
+}
+weird(response);
   });
 });
+
+// $('#searchMoviesButton').on('click', function (event) {
+//   event.preventDefault();
+//   var query = $('#movieSearch').val();
+//
+//   var settings = {
+//     'async': true,
+//     'crossDomain': true,
+//     'url': 'https://api.themoviedb.org/3/search/movie?api_key=' + `${THEMOVIEDB_TOKEN}` + '&query=' + encodeURI(query),
+//     'method': 'GET',
+//     'headers': {},
+//     'data': '{}'
+//   };
+//
+//   $.ajax(settings).done(function (response) {
+//     console.log(response);
+//   });
+// });
 
 $('.userLoginForm').hide();
 $('.loginButton').on('click', function() {

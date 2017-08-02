@@ -15,7 +15,7 @@
 
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link href="fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -30,6 +30,17 @@
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <!-- Handlebar Template for Search
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+  <script type="text/x-handlebars-template" class="handlebarTemplate">
+    <div class="movieDiv" id="{{id}}">
+      <p><img class="posters" max-height="300px" src="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+      <br><h2>{{movieTitle}}{{showTitle}} ({{tvD movieDate}}{{tvD tvDate}})</h2></a>
+      <br><h3>{{overview}}</h3></p>
+    </div>
+  </script>
 
 </head>
 <body>
@@ -103,6 +114,7 @@
     </label>
   </form>
 
+  <div id ="out"></div>
 
   <!-- vendor scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
