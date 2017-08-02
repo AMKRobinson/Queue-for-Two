@@ -99,24 +99,24 @@ function loadCustomers() {
     JSON.parse(fd.toString()).forEach(ele => {
       client.query(
         'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
-        [ele.author, ele.authorUrl]
+        [ele.username, ele.password, ele.name, ele.email]
       )
       .catch(console.error);
     })
   })
 }
 
-function loadMedia() {
-  fs.readFile('./public/data/media.json', (err, fd) => {
-    JSON.parse(fd.toString()).forEach(ele => {
-      client.query(
-        'INSERT INTO Media(url_string) VALUES($1) ON CONFLICT DO NOTHING',
-        [ele.author, ele.authorUrl]
-      )
-      .catch(console.error);
-    })
-  })
-}
+// function loadMedia() {
+//   fs.readFile('./public/data/media.json', (err, fd) => {
+//     JSON.parse(fd.toString()).forEach(ele => {
+//       client.query(
+//         'INSERT INTO Media(url_string) VALUES($1) ON CONFLICT DO NOTHING',
+//         [ele.author, ele.authorUrl]
+//       )
+//       .catch(console.error);
+//     })
+//   })
+// }
 
 function loadDB() {
   client.query(`
@@ -137,7 +137,7 @@ function loadDB() {
     url_string text
     );`
   )
-  .then(loadMedia)
+  // .then(loadMedia)
   .catch(console.error);
 
   client.query(`
