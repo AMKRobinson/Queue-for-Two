@@ -37,6 +37,54 @@ app.get('/shared-titles', (request, response) => response.sendFile('index.html',
 app.get('/about-us', (request, response) => response.sendFile('index.html', {root: './public'}));
 app.get('/themoviedb/*', proxyMovieDB);
 
+// route for gathering all of the users from our Customers table
+app.get('/users', (request, response) => {
+  client.query(`SELECT username FROM Customers;`)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+})
+
+// route for query to database gathering all unique url_strings between customers
+app.get('/media-matches', (request, response) => {
+  client.query(`SELECT DISTINCT url_string
+  FROM Media
+  INNER JOIN Customers_Media
+  ON Media.media_id = Customers_Media.media_id
+  WHERE Customers_Media.media_id IN
+  (SELECT media_id
+  FROM Customers_Media
+  GROUP BY media_id
+  HAVING COUNT(*) > 1);`)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+})
+
+// route for adding new Customer data to DATABASE
+app.post('/customers', function(request, response) {
+  client.query(
+    'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
+    [request.body.username,
+    request.body.password,
+    request.body.name,
+    request.body.email],
+    function(err) {
+      if (err) console.error(err)
+    }
+  )
+
+// route for inserting customer_id for Customer and media_id for media Customer selects into Customers_Media table
+app.post('/customers-media', function(request, response) {
+  client.query(
+    'INSERT INTO Customers_Media (customer_id, media_id) VALUES ($1,$2);',
+    [request.body.customer_id, request.body.media_id],
+    function(err) {
+      if (err) console.error(err)
+    }
+  )
+
+loadDB();
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
 
 //////// ** DATABASE LOADERS ** ////////
 ////////////////////////////////////////
@@ -92,6 +140,7 @@ function loadDB() {
     media_id INT REFERENCES Media(media_id),
     CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
   )
+  .then()
   .catch(console.error);
 }
 
