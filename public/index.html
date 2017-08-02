@@ -15,7 +15,11 @@
 
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
   <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://i.icomoon.io/public/temp/c182723766/UntitledProject/style-svg.css">
+  <!-- <script src="https://use.fontawesome.com/90d6463d65.js"></script> -->
+
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -55,8 +59,7 @@
       <div class="mainTitle">
         <h1>Queue for Two</h1>
 
-      <div class="one-half column" style="margin-top: 25%">
-        <h4>Queue for Two</h4>
+      <div class="one-half column">
       </div>
     </div>
   </div>
@@ -112,11 +115,53 @@
       <input type="text" id="movieSearch" size="30" maxlength="100" value="">
     </label>
     <label>
-      <input type="submit" id="searchMoviesButton"></input>
+      <button type="submit" id="searchMoviesButton">SEARCH</button>
     </label>
   </form>
 
+
+  <!--icon-button-->
+  <label>
+    <button class="icon-button">HAMBURGER</button>
+  </label>
+  <!-- <button><svg class="mButton"><use xlink:href="#icon-menu"></use></svg></button> -->
+  <!--
+  <button class="icon-menu"></button>
+  <div class="icon-button"><i class="fa fa-bars" aria-hidden="true"></i></div>
+  <symbol id="icon-menu" viewBox="0 0 32 32">
+<title>menu</title>
+<path d="M2 6h28v6h-28zM2 14h28v6h-28zM2 22h28v6h-28z"></path>
+</symbol>
+<script defer src="https://i.icomoon.io/public/temp/c182723766/UntitledProject/svgxuse.js"></script> -->
+<script defer src="https://i.icomoon.io/public/temp/648318e071/UntitledProject/svgxuse.js"></script>
+
+  <!--Hamburger Buttons-->
+  <div class="hamburgerButtons">
+    <button id="yourTitlesButton">YOUR TITLES</button>
+    <button id="othersTitlesButton">OTHERS' TITLES</button>
+    <button id="aboutUsButton">ABOUT US</button>
+    <button id="findMovieButton">MOVIE SEARCH</button>
+  </div>
+
+  <!--YOUR TITLES-->
+  <h5 class="yourTitlesCap">YOUR TITLES</h5>
+  <p class="titlesMessage">Collect Your To-Watch List On This Page.</p>
+
+  <!--OTHERS' TITLES-->
+  <h6 class="othersTitlesCap">OTHERS' TITLES</h6>
+  <p class="othersTitlesMessage">Click User To View Your Shared Titles</p>
+  <p class="noTitlesMessage">YOU HAVE NO TITLES!</p>
+
+  <!--SHARED TITLES-->
+
+  <!--ABOUT US-->
+  <h7 class="aboutUsCap">ABOUT US</h7>
+  <p class="aboutUsPg">Katherine Hanson</p>
+  <p class="aboutUsPg">Katherine Pryszlak</p>
+  <p class="aboutUsPg">Anthony Robinson</p>
+
   <div id ="out"></div>
+
 
   <!-- vendor scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
