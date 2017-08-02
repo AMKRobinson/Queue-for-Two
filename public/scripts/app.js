@@ -192,7 +192,7 @@ $('.loginButton2').on('click', function(event) {
 //HAMBURGER MENU
 $('.icon-button').on('click', function(event) {
   event.preventDefault();
-  $('.hamburgerButtons').show(700).slideDown();
+  $('.hamburgerButtons').fadeToggle(700);
 });//END
 
 
