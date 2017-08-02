@@ -15,9 +15,11 @@
 
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://i.icomoon.io/public/temp/c182723766/UntitledProject/style-svg.css">
   <!-- <script src="https://use.fontawesome.com/90d6463d65.js"></script> -->
+
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -32,6 +34,17 @@
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <!-- Handlebar Template for Search
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+  <script type="text/x-handlebars-template" class="handlebarTemplate">
+    <div class="movieDiv" id="{{id}}">
+      <p><img class="posters" max-height="300px" src="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+      <br><h2>{{movieTitle}}{{showTitle}} ({{tvD movieDate}}{{tvD tvDate}})</h2></a>
+      <br><h3>{{overview}}</h3></p>
+    </div>
+  </script>
 
 </head>
 <body>
@@ -104,6 +117,7 @@
     </label>
   </form>
 
+
   <!--icon-button-->
   <label>
     <button class="icon-button">HAMBURGER</button>
@@ -143,6 +157,9 @@
   <p class="aboutUsPg">Katherine Hanson</p>
   <p class="aboutUsPg">Katherine Pryszlak</p>
   <p class="aboutUsPg">Anthony Robinson</p>
+
+  <div id ="out"></div>
+
 
   <!-- vendor scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
