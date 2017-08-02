@@ -134,6 +134,7 @@ function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS Media (
     media_id SERIAL PRIMARY KEY,
+    media_type text,
     url_string text
     );`
   )
@@ -146,7 +147,6 @@ function loadDB() {
     media_id INT REFERENCES Media(media_id),
     CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
   )
-  .then()
   .catch(console.error);
 }
 
