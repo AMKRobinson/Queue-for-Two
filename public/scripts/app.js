@@ -119,6 +119,7 @@ $('.loginButton').on('click', function(event) {
     $('.findAMovie').fadeIn(700);
   });
 })
+
 $('#searchMoviesButton').on('click', function (event) {
   event.preventDefault();
 
@@ -149,7 +150,7 @@ $('#searchMoviesButton').on('click', function (event) {
     let weird = (results) => {
       response.results.map(response => {
         //should be able to .on click gather id info for DB
-      var info = {id: response.id, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
+      var info = {id: response.id, media_type: media_type.id, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
       console.log(info)
       $('#out').append(template(info))
   })
