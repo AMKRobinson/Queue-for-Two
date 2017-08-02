@@ -139,10 +139,10 @@ $('#searchMoviesButton').on('click', function (event) {
 
 //this shortens the date which is in YYYY-MM-DD to just YYYY
   Handlebars.registerHelper('tvD', function(date) {
-  if (date && date.length > 4)
-    return date.substring(0,4);
-  return date;
-});
+    if (date && date.length > 4)
+      return date.substring(0,4);
+    return date;
+  });
 
   $('#out').html('');
   $.ajax(settings).done(function (response) {
@@ -150,18 +150,21 @@ $('#searchMoviesButton').on('click', function (event) {
     let weird = (results) => {
       response.results.map(response => {
         //should be able to .on click gather id info for DB
-      var info = {id: response.id, media_type: response.media_type, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
-      console.log(info)
-      $('#out').append(template(info))
-  })
-}
-weird(response);
+        var info = {id: response.id, media_type: response.media_type, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
+        console.log(info)
+        $('#out').append(template(info))
+      })
+    }
+    weird(response);
   });
+  // $('.posters').on('click', function () {
+  //   console.log('hello');
+  // });
+});
+$(document).on('click','.movieDiv',function(){
+  console.log(this.id);
 });
 
-$('.movieDiv').click(function() {
-  console.log('#id').value;
-})
 
 // $('#searchMoviesButton').on('click', function (event) {
 //   event.preventDefault();
