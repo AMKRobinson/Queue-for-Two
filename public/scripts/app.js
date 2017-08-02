@@ -150,7 +150,7 @@ $('#searchMoviesButton').on('click', function (event) {
     let weird = (results) => {
       response.results.map(response => {
         //should be able to .on click gather id info for DB
-      var info = {id: response.id, media_type: response.movie_type, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
+      var info = {id: response.id, media_type: response.media_type, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
       console.log(info)
       $('#out').append(template(info))
   })
@@ -158,6 +158,10 @@ $('#searchMoviesButton').on('click', function (event) {
 weird(response);
   });
 });
+
+$('.movieDiv').click(function() {
+  console.log('#id').value;
+})
 
 // $('#searchMoviesButton').on('click', function (event) {
 //   event.preventDefault();
