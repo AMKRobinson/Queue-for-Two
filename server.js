@@ -77,16 +77,16 @@ app.post('/customers', function(request, response) {
 
 // route for inserting customer_id for Customer and media_id for media Customer selects into Customers_Media table
 
-app.post('/customers-media', function(request, response) {
-  client.query(
-    'INSERT INTO Customers_Media (customer_id, media_id) VALUES ($1,$2) ON CONFLICT DO NOTHING',
-    [request.body.customer_id, request.body.media_id],
-    function(err) {
-      if (err) console.error(err)
-      response.send('insert complete');
-    }
-  )
-});
+// app.post('/customers-media', function(request, response) {
+//   client.query(
+//     'INSERT INTO Customers_Media (customer_id, media_id) VALUES ($1,$2) ON CONFLICT DO NOTHING',
+//     [request.body.customer_id, request.body.media_id],
+//     function(err) {
+//       if (err) console.error(err)
+//       response.send('insert complete');
+//     }
+//   )
+// });
 
 loadDB();
 
