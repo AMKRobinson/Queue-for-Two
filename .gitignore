@@ -64,5 +64,9 @@ Session.vim
 # auto-generated tag files
 tags
 env.sh
+<<<<<<< HEAD
 
 api.js
+=======
+public/api.js
+>>>>>>> 71cee263dfa11f9a37488dc13ece9af86f09cf7c
