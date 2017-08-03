@@ -104,17 +104,17 @@ app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
 
 //////// ** DATABASE LOADERS ** ////////
 ////////////////////////////////////////
-function loadCustomers() {
-  fs.readFile('./public/data/customers.json', (err, fd) => {
-    JSON.parse(fd.toString()).forEach(ele => {
-      client.query(
-        'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
-        [ele.username, ele.password, ele.name, ele.email]
-      )
-      .catch(console.error);
-    })
-  })
-}
+// function loadCustomers() {
+//   fs.readFile('./public/data/customers.json', (err, fd) => {
+//     JSON.parse(fd.toString()).forEach(ele => {
+//       client.query(
+//         'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
+//         [ele.username, ele.password, ele.name, ele.email]
+//       )
+//       .catch(console.error);
+//     })
+//   })
+// }
 
 // function loadMedia() {
 //   fs.readFile('./public/data/media.json', (err, fd) => {
@@ -138,7 +138,7 @@ function loadDB() {
     email VARCHAR(255)
     );`
   )
-  .then(loadCustomers)
+  // .then(loadCustomers)
   .catch(console.error);
 
   client.query(`
@@ -158,66 +158,3 @@ function loadDB() {
   )
   .catch(console.error);
 }
-
-//SQL query to create customer table.
-
-// CREATE TABLE IF NOT EXISTS Customers (
-// customer_id SERIAL PRIMARY KEY,
-// username VARCHAR(100),
-// password VARCHAR(100),
-// name VARCHAR(255),
-// email VARCHAR(255)
-// );
-
-// SQL query to create media table
-
-// CREATE TABLE IF NOT EXISTS Media (
-// media_id SERIAL PRIMARY KEY,
-// url_string text
-// );
-
-// SQL query to insert a row into Customers
-
-// INSERT INTO Customers
-// (username, password, name, email)
-// VALUES ('carrieH','lilies','Carrie Hans', 'carriehans@gmail.com');
-
-// SQL query to insert a row into Media
-
-// INSERT INTO Media
-// (url_string)
-// VALUES ('https://www.themoviedb.org/tv/1399-game-of-thrones'
-// );
-
-// SQL Query to create associative table
-// Customers_Media, ensuring that a customer
-// cannot add the same title to their queue twice
-
-// CREATE TABLE IF NOT EXISTS Customers_Media (
-// customer_id INT REFERENCES Customers(customer_id),
-// media_id INT REFERENCES Media(media_id),
-// CONSTRAINT queue_item UNIQUE (customer_id, media_id));
-
-// Insert values into Customers_Media table
-
-// INSERT INTO Customers_Media
-// (customer_id, media_id)
-// VALUES (1,5);
-
-// Query selecting url_strings for all
-// queue items two customers
-// have in common
-
-// SELECT DISTINCT url_string
-// FROM Media
-// INNER JOIN Customers_Media
-// ON Media.media_id = Customers_Media.media_id
-// WHERE Customers_Media.media_id IN
-// (SELECT media_id
-// FROM Customers_Media
-// GROUP BY media_id
-// HAVING COUNT(*) > 1);
-
-// To select usernames from Customers table
-
-// SELECT username FROM Customers;

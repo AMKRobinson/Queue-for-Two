@@ -46,7 +46,9 @@
     </div>
 
   </script>
-
+  <script type="text/x-handlebars-template" id="customer-template">
+    <p>{{username}}</p>
+  </script>
 </head>
 <body>
 
@@ -148,9 +150,11 @@
   <p class="titlesMessage">Collect Your To-Watch List On This Page.</p>
 
   <!--OTHERS' TITLES-->
-  <h6 class="othersTitlesCap">OTHERS' TITLES</h6>
-  <p class="othersTitlesMessage">Click User To View Your Shared Titles</p>
-  <p class="noTitlesMessage">YOU HAVE NO TITLES!</p>
+  <section id="customers">
+    <h6 class="othersTitlesCap">OTHERS' TITLES</h6>
+    <p class="othersTitlesMessage">Click User To View Your Shared Titles</p>
+    <p class="noTitlesMessage">YOU HAVE NO TITLES!</p>
+  </section>
 
   <!--SHARED TITLES-->
 
@@ -169,6 +173,9 @@
   <!-- local scripts -->
   <!-- <script src="api.js" type="text/javascript"></script> -->
   <script src="scripts/app.js" type="text/javascript"></script>
+
+  <script src="scripts/customer.js" type="text/javascript"></script>
+  <script src="scripts/views/customerView.js" type="text/javascript"></script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->

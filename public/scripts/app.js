@@ -209,7 +209,8 @@ $('.othersTitlesCap, .othersTitlesMessage, .noTitlesMessage, .aboutUsCap, .about
 $('#othersTitlesButton').on('click', function(event) {
   event.preventDefault();
   $('.findAMovie, .yourTitlesCap, .titlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
-  $('.othersTitlesCap, .othersTitlesMessage').fadeIn(700);
+  $('#customers').show();
+  $('.othersTitlesCap, .othersTitlesMYosessage').fadeIn(700);
   //Haven't yet made a condition for the .noTitlesMessage to be shown yet
 });//END
 
@@ -262,6 +263,32 @@ $(document).on('click','.movieDiv',function(){
   console.log(this.id);
 });
 
+// functionality for rendering customers to append
+const render = function(customer) {
+  let template = Handlebars.compile($('#customer-template').text());
+
+  return template(customer);
+};
+
+$.get('/users', function(response) {
+  console.log(response);
+  response.forEach(function(element){
+    $('#customers').append(render(element))
+    console.log(element.username);
+  });
+});
+
+// $.get('./public/data/customers.json', {data: encodeURI(query)}).done(function (response) {
+//   console.log(response);
+//   let customers_data = (results) => {
+//     response.results.map(response => {
+//       var info = {username: response.username, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
+//       console.log(info)
+//       $('#customers').append(template(info))
+//     })
+//   }
+//   customers_data(response);
+// });
 
 //RETURN TO FIND A MOVIE
 $('#findMovieButton').on('click', function(event) {
