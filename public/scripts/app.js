@@ -250,7 +250,7 @@ $('#aboutUsButton').on('click', function(event) {
 //SEARCH MOVIES
 $('#searchMoviesButton').on('click', function(event) {
   event.preventDefault();
-  var query = $('#movieSearch').val();
+  var query =  encodeURI($('#movieSearch').val());
 
 //need to use external API!!
   // var settings = {
@@ -272,7 +272,8 @@ $('#searchMoviesButton').on('click', function(event) {
   });
 
   $('#out').html('');
-  $.get('/themoviedb', {data: encodeURI(query)}).done(function (response) {
+  $.get('/themoviedb', {data:query}).done(function (response) {
+    console.log(query);
     console.log(response);
     let weird = (results) => {
       response.results.map(response => {

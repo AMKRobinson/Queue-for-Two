@@ -23,9 +23,10 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/style.css">
+
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/module.css">
@@ -40,9 +41,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
   <script type="text/x-handlebars-template" class="handlebarTemplate">
     <div class="movieDiv" class="{{media_type}}" id="{{media_type}}/{{movieid}}">
-      <p><img class="posters" max-height="300px" src="https://image.tmdb.org/t/p/w500/{{poster_path}}">
-      <br><h2>{{movieTitle}}{{showTitle}} ({{tvD movieDate}}{{tvD tvDate}})</h2></a>
-      <br><h3>{{overview}}</h3></p>
+      <p><img class="posters" src="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+      <br>({{tvD movieDate}}{{tvD tvDate}})</p>
+    </div>
+    </a>
+      <!-- <br><h3>{{overview}}</h3></p> -->
+
     </div>
 
   </script>
