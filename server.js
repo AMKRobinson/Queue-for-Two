@@ -56,19 +56,43 @@ app.get('/users', (request, response) => {
 })
 
 // route for query to database gathering all unique url_strings between customers
+// app.get('/media-matches', (request, response) => {
+//   client.query(`SELECT DISTINCT url_string
+//   FROM Media
+//   INNER JOIN Customers_Media
+//   ON Media.media_id = Customers_Media.media_id
+//   WHERE Customers_Media.media_id IN
+//   (SELECT media_id
+//   FROM Customers_Media
+//   GROUP BY media_id
+//   HAVING COUNT(*) > 1);`)
+//   .then(result => response.send(result.rows))
+//   .catch(console.error);
+// })
+
+// SELECT url_string
+// FROM Media
+// WHERE customer_id = $1 OR customer_id = $2
+// GROUP BY url_string
+// HAVING COUNT(*) > 1;
+
 app.get('/media-matches', (request, response) => {
-  client.query(`SELECT DISTINCT url_string
-  FROM Media
-  INNER JOIN Customers_Media
-  ON Media.media_id = Customers_Media.media_id
-  WHERE Customers_Media.media_id IN
-  (SELECT media_id
-  FROM Customers_Media
-  GROUP BY media_id
-  HAVING COUNT(*) > 1);`)
-  .then(result => response.send(result.rows))
-  .catch(console.error);
+  console.log(request);
+  client.query(`
+    SELECT A.url_string
+    FROM Media A, Media B
+    WHERE A.customer_id = $1
+    AND B.customer_id = $2
+    AND A.url_string = B.url_string
+    ORDER BY A.url_string;
+    `,
+    [
+      request.body.other_customer_id,
+      request.body.current_customer_id
+    ]
+  )
 })
+
 
 // route for adding new Customer data to DATABASE
 app.post('/customers', function(request, response) {

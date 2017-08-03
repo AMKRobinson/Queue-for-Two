@@ -294,7 +294,7 @@ $(document).on('click','.movieDiv',function(){
   .then(res => console.log(res))
 });
 
-// functionality for rendering customers to append
+// functionality for rendering customers to Others' Titles
 const render = function(customer) {
   let template = Handlebars.compile($('#customer-template').text());
 
@@ -308,6 +308,17 @@ $.get('/users', function(response) {
     console.log(element.username);
   });
 });
+
+// functionality for user queue comparison
+$('#customers').on('click', 'div', function(){
+  console.log(this.id);
+  let data = {
+    other_customer_id: parseInt(this.id),
+    current_customer_id: JSON.parse(localStorage.user).customer_id
+  }
+  console.log(data);
+  $.get('/media-matches', data);
+})
 
 // $.get('./public/data/customers.json', {data: encodeURI(query)}).done(function (response) {
 //   console.log(response);
