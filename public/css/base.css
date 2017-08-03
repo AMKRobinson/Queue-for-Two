@@ -1,0 +1,84 @@
+html {
+  /*background-image: url(http://www.mirimoro.net/overhead05.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;*/
+  background-color: black;
+}
+
+body {
+}
+
+#start {
+  margin-top: 7%;
+  text-align: center;
+}
+
+#navigationBar {
+  position: fixed;
+  background-color: transparent;
+  width: 100%;
+  height: 20%;
+  display: block;
+  border-style: solid;
+  border-color: black;
+  /*z-index: -1;*/
+}
+
+.icon-button {
+  margin-top: 0.5%;
+  background-color: black;
+}
+
+.icon {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  color: blue;
+}
+
+.hamburgerButtons {
+  margin-top: 4%;
+  z-index: 1;
+}
+
+button {
+  background-color: black;
+  color: white  ;
+}
+
+button:hover {
+  color: green;
+  background-color: green;
+}
+
+button:active {
+  background-color: yellow;
+}
+
+.mainTitle {
+  font-size: 6em;
+  text-align: center;
+  display: block;
+  color: white;
+}
+
+.fieldset {
+
+}
+
+.movieDiv {
+  width: 100%;
+  height: 8em;
+  background-color: black;
+}
+
+.findAMovie {
+  background-color: black;
+  text-align: center;
+  font-size: 2em;
+}

@@ -47,6 +47,25 @@
 
   </script>
 
+  <!--icon-button-->
+  <!-- <div>
+  <button class="icon-button">HAMBURGER</button>
+</div> -->
+    <nav id="navigationBar">
+      <div class="glyph fs1">
+        <div class="clearfix pbs">
+          <button class="icon-button"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg></button>
+        </div>
+      </div>
+  <!--Hamburger Buttons-->
+      <div class="hamburgerButtons">
+        <button id="yourTitlesButton">YOUR TITLES</button>
+        <button id="othersTitlesButton">OTHERS' TITLES</button>
+        <button id="aboutUsButton">ABOUT US</button>
+        <button id="findMovieButton">MOVIE SEARCH</button>
+      </div><!--Hamburger Buttons END-->
+    </nav>
+  <script defer src="https://i.icomoon.io/public/temp/c0b8c196ac/UntitledProject/svgxuse.js"></script>
 </head>
 <body>
 
@@ -56,18 +75,20 @@
   <div class="container">
     <div class="row">
 
-      <div class="mainTitle">
-        <h1>Queue for Two</h1>
-
+      <p class="mainTitle">
+        <h1 class="mainTitle">Queue for Two</h1>
+      </p>
       <div class="one-half column">
       </div>
     </div>
   </div>
   <!--user login fields-->
+<p id="start">
   <button type="submit" class="loginButton">Login</button>
   <button type="submit" class="signUpButton">Sign Up</button>
+</p>
   <form class="userLoginForm">
-    <fieldset>
+    <fieldset class="fieldset">
       <label id="loginInName">
          User Name:
         <input type="text" name="name" size="30" maxlength="100" placeholder="Enter Here">
@@ -109,48 +130,28 @@
   </form>
 
   <!--Find A Movie Form-->
-  <form class="findAMovie">FIND A MOVIE
-    <label id="findAMovieLabel">
-       Movie Title:
-      <input type="text" id="movieSearch" size="30" maxlength="100" value="">
-    </label>
-    <div>
-      <button type="submit" id="searchMoviesButton">SEARCH</button>
-    </div>
-  </form>
-
-
-  <!--icon-button-->
-  <div>
-    <button class="icon-button">HAMBURGER</button>
+  <div id="movieDiv">
+    <form class="findAMovie">FIND A MOVIE
+      <label id="findAMovieLabel" style="color: white">
+        Movie Title:
+        <input type="text" id="movieSearch" size="30" maxlength="100" value="">
+      </label>
+      <div>
+        <button type="submit" id="searchMoviesButton">SEARCH</button>
+      </div>
+    </form>
   </div>
-  <!-- <button><svg class="mButton"><use xlink:href="#icon-menu"></use></svg></button> -->
-  <!--
-  <button class="icon-menu"></button>
-  <div class="icon-button"><i class="fa fa-bars" aria-hidden="true"></i></div>
-  <symbol id="icon-menu" viewBox="0 0 32 32">
-<title>menu</title>
-<path d="M2 6h28v6h-28zM2 14h28v6h-28zM2 22h28v6h-28z"></path>
-</symbol>
-<script defer src="https://i.icomoon.io/public/temp/c182723766/UntitledProject/svgxuse.js"></script> -->
-<script defer src="https://i.icomoon.io/public/temp/648318e071/UntitledProject/svgxuse.js"></script>
 
-  <!--Hamburger Buttons-->
-  <div class="hamburgerButtons">
-    <button id="yourTitlesButton">YOUR TITLES</button>
-    <button id="othersTitlesButton">OTHERS' TITLES</button>
-    <button id="aboutUsButton">ABOUT US</button>
-    <button id="findMovieButton">MOVIE SEARCH</button>
-  </div>
+
 
   <!--YOUR TITLES-->
-  <h5 class="yourTitlesCap">YOUR TITLES</h5>
-  <p class="titlesMessage">Collect Your To-Watch List On This Page.</p>
+  <h5 class="yourTitlesCap" style="color: white">YOUR TITLES</h5>
+  <p class="titlesMessage" style="color: white">Collect Your To-Watch List On This Page.</p>
 
   <!--OTHERS' TITLES-->
-  <h6 class="othersTitlesCap">OTHERS' TITLES</h6>
-  <p class="othersTitlesMessage">Click User To View Your Shared Titles</p>
-  <p class="noTitlesMessage">YOU HAVE NO TITLES!</p>
+  <h6 class="othersTitlesCap" style="color: white">OTHERS' TITLES</h6>
+  <p class="othersTitlesMessage" style="color: white">Click User To View Your Shared Titles</p>
+  <p class="noTitlesMessage" style="color: white">YOU HAVE NO TITLES!</p>
 
   <!--SHARED TITLES-->
 

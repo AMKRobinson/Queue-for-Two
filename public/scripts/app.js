@@ -160,17 +160,18 @@
 $('.icon-button, .userLoginForm').hide();
 $('.loginButton').on('click', function(event) {
   event.preventDefault();
-  $('.userLoginForm, .loginButton2').fadeIn(700);
-  $('.loginButton, .signUpButton').fadeOut(700);
-
+  $('.loginButton, .signUpButton').fadeOut(700)
+  .then(
+  $('.userLoginForm, .loginButton2').delay(700).fadeIn(700)
+  )
 });
 
 //User Sign Up Form .on('click')
 $('.userSignUpForm').hide();
 $('.signUpButton').on('click', function(event) {
   event.preventDefault();
-  $('.userSignUpForm, .signUpButton2').fadeIn(700);
   $('.loginButton, .signUpButton').fadeOut(700);
+  $('.userSignUpForm, .signUpButton2').delay(700).fadeIn(700);
 
 });
 
