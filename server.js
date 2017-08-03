@@ -50,7 +50,7 @@ app.get('/themoviedb', (req, res) => {
 
 // route for gathering all of the users from our Customers table
 app.get('/users', (request, response) => {
-  client.query(`SELECT username FROM Customers;`)
+  client.query(`SELECT * FROM Customers;`)
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
