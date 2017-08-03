@@ -200,17 +200,16 @@ $('.icon-button').on('click', function(event) {
 $('.yourTitlesCap, .titlesMessage').hide();
 $('#yourTitlesButton').on('click', function(event) {
   event.preventDefault();
-  $('.findAMovie, .othersTitlesCap, .othersTitlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
+  $('.findAMovie, #customers, .aboutUsCap, .aboutUsPg').fadeOut(700);
   $('.yourTitlesCap, .titlesMessage').fadeIn(700);
 });//END
 
 //OTHERS' TITLES
-$('.othersTitlesCap, .othersTitlesMessage, .noTitlesMessage, .aboutUsCap, .aboutUsPg').hide();
+$('#customers, .noTitlesMessage, .aboutUsCap, .aboutUsPg').hide();
 $('#othersTitlesButton').on('click', function(event) {
   event.preventDefault();
   $('.findAMovie, .yourTitlesCap, .titlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
-  $('#customers').show();
-  $('.othersTitlesCap, .othersTitlesMYosessage').fadeIn(700);
+  $('#customers').fadeIn(700);
   //Haven't yet made a condition for the .noTitlesMessage to be shown yet
 });//END
 
