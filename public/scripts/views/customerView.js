@@ -18,7 +18,7 @@ var app = app || {};
   // Also, it should be idempotent, so it can be run multiple times with identical results.
   customerView.index = function(customers) {
     $('#customers').show();
-    $('#customers customer').remove();
+    // $('#customers customer').remove();
     customers.forEach(a => $('#customers').append(render(a)))
   };
 

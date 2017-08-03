@@ -46,11 +46,8 @@
     </div>
 
   </script>
-  <script type="text/x-handlebars-template" class="usernameTemplate">
-    <div class="movieDiv" class="{{media_type}}" id="{{media_type}}/{{movieid}}">
-      <p>{{username}}</p>
-    </div>
-
+  <script type="text/x-handlebars-template" id="customer-template">
+    <p>{{username}}</p>
   </script>
 </head>
 <body>
@@ -153,9 +150,11 @@
   <p class="titlesMessage">Collect Your To-Watch List On This Page.</p>
 
   <!--OTHERS' TITLES-->
-  <h6 class="othersTitlesCap">OTHERS' TITLES</h6>
-  <p class="othersTitlesMessage">Click User To View Your Shared Titles</p>
-  <p class="noTitlesMessage">YOU HAVE NO TITLES!</p>
+  <section id="customers">
+    <h6 class="othersTitlesCap">OTHERS' TITLES</h6>
+    <p class="othersTitlesMessage">Click User To View Your Shared Titles</p>
+    <p class="noTitlesMessage">YOU HAVE NO TITLES!</p>
+  </section>
 
   <!--SHARED TITLES-->
 

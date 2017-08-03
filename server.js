@@ -5,7 +5,7 @@ const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('superagent');
-const requestProxy = require('express-request-proxy');
+// const requestProxy = require('express-request-proxy');
 
 const PORT = process.env.PORT || 4000;
 const app = express();
