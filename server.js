@@ -50,25 +50,49 @@ app.get('/themoviedb', (req, res) => {
 
 // route for gathering all of the users from our Customers table
 app.get('/users', (request, response) => {
-  client.query(`SELECT username FROM Customers;`)
+  client.query(`SELECT * FROM Customers;`)
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
 
 // route for query to database gathering all unique url_strings between customers
+// app.get('/media-matches', (request, response) => {
+//   client.query(`SELECT DISTINCT url_string
+//   FROM Media
+//   INNER JOIN Customers_Media
+//   ON Media.media_id = Customers_Media.media_id
+//   WHERE Customers_Media.media_id IN
+//   (SELECT media_id
+//   FROM Customers_Media
+//   GROUP BY media_id
+//   HAVING COUNT(*) > 1);`)
+//   .then(result => response.send(result.rows))
+//   .catch(console.error);
+// })
+
+// SELECT url_string
+// FROM Media
+// WHERE customer_id = $1 OR customer_id = $2
+// GROUP BY url_string
+// HAVING COUNT(*) > 1;
+
 app.get('/media-matches', (request, response) => {
-  client.query(`SELECT DISTINCT url_string
-  FROM Media
-  INNER JOIN Customers_Media
-  ON Media.media_id = Customers_Media.media_id
-  WHERE Customers_Media.media_id IN
-  (SELECT media_id
-  FROM Customers_Media
-  GROUP BY media_id
-  HAVING COUNT(*) > 1);`)
-  .then(result => response.send(result.rows))
-  .catch(console.error);
+  console.log(request);
+  client.query(`
+    SELECT A.url_string
+    FROM Media A, Media B
+    WHERE A.customer_id = $1
+    AND B.customer_id = $2
+    AND A.url_string = B.url_string
+    ORDER BY A.url_string;
+    `,
+    [
+      request.body.other_customer_id,
+      request.body.current_customer_id
+    ]
+  )
 })
+
 
 // route for adding new Customer data to DATABASE
 app.post('/customers', function(request, response) {
@@ -87,16 +111,16 @@ app.post('/customers', function(request, response) {
 
 // route for inserting customer_id for Customer and media_id for media Customer selects into Customers_Media table
 
-// app.post('/customers-media', function(request, response) {
-//   client.query(
-//     'INSERT INTO Customers_Media (customer_id, media_id) VALUES ($1,$2) ON CONFLICT DO NOTHING',
-//     [request.body.customer_id, request.body.media_id],
-//     function(err) {
-//       if (err) console.error(err)
-//       response.send('insert complete');
-//     }
-//   )
-// });
+app.post('/media', function(request, response) {
+  client.query(
+    'INSERT INTO Media (customer_id, url_string) VALUES ($1,$2) ON CONFLICT DO NOTHING',
+    [request.body.customer_id, request.body.url_string],
+    function(err) {
+      if (err) console.error(err)
+      response.send('insert complete');
+    }
+  )
+});
 
 loadDB();
 
@@ -104,17 +128,17 @@ app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
 
 //////// ** DATABASE LOADERS ** ////////
 ////////////////////////////////////////
-function loadCustomers() {
-  fs.readFile('./public/data/customers.json', (err, fd) => {
-    JSON.parse(fd.toString()).forEach(ele => {
-      client.query(
-        'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
-        [ele.username, ele.password, ele.name, ele.email]
-      )
-      .catch(console.error);
-    })
-  })
-}
+// function loadCustomers() {
+//   fs.readFile('./public/data/customers.json', (err, fd) => {
+//     JSON.parse(fd.toString()).forEach(ele => {
+//       client.query(
+//         'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
+//         [ele.username, ele.password, ele.name, ele.email]
+//       )
+//       .catch(console.error);
+//     })
+//   })
+// }
 
 // function loadMedia() {
 //   fs.readFile('./public/data/media.json', (err, fd) => {
@@ -138,86 +162,25 @@ function loadDB() {
     email VARCHAR(255)
     );`
   )
-  .then(loadCustomers)
+  // .then(loadCustomers)
   .catch(console.error);
 
   client.query(`
     CREATE TABLE IF NOT EXISTS Media (
     media_id SERIAL PRIMARY KEY,
-    url_string text
+    customer_id INTEGER REFERENCES Customers(customer_id),
+    url_string text,
+    CONSTRAINT queue_item UNIQUE (customer_id, url_string)
     );`
   )
   // .then(loadMedia)
   .catch(console.error);
 
-  client.query(`
-    CREATE TABLE IF NOT EXISTS Customers_Media (
-    customer_id INT REFERENCES Customers(customer_id),
-    media_id INT REFERENCES Media(media_id),
-    CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
-  )
-  .catch(console.error);
+  // client.query(`
+  //   CREATE TABLE IF NOT EXISTS Customers_Media (
+  //   customer_id INT REFERENCES Customers(customer_id),
+  //   media_id INT REFERENCES Media(media_id),
+  //   CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
+  // )
+  // .catch(console.error);
 }
-
-//SQL query to create customer table.
-
-// CREATE TABLE IF NOT EXISTS Customers (
-// customer_id SERIAL PRIMARY KEY,
-// username VARCHAR(100),
-// password VARCHAR(100),
-// name VARCHAR(255),
-// email VARCHAR(255)
-// );
-
-// SQL query to create media table
-
-// CREATE TABLE IF NOT EXISTS Media (
-// media_id SERIAL PRIMARY KEY,
-// url_string text
-// );
-
-// SQL query to insert a row into Customers
-
-// INSERT INTO Customers
-// (username, password, name, email)
-// VALUES ('carrieH','lilies','Carrie Hans', 'carriehans@gmail.com');
-
-// SQL query to insert a row into Media
-
-// INSERT INTO Media
-// (url_string)
-// VALUES ('https://www.themoviedb.org/tv/1399-game-of-thrones'
-// );
-
-// SQL Query to create associative table
-// Customers_Media, ensuring that a customer
-// cannot add the same title to their queue twice
-
-// CREATE TABLE IF NOT EXISTS Customers_Media (
-// customer_id INT REFERENCES Customers(customer_id),
-// media_id INT REFERENCES Media(media_id),
-// CONSTRAINT queue_item UNIQUE (customer_id, media_id));
-
-// Insert values into Customers_Media table
-
-// INSERT INTO Customers_Media
-// (customer_id, media_id)
-// VALUES (1,5);
-
-// Query selecting url_strings for all
-// queue items two customers
-// have in common
-
-// SELECT DISTINCT url_string
-// FROM Media
-// INNER JOIN Customers_Media
-// ON Media.media_id = Customers_Media.media_id
-// WHERE Customers_Media.media_id IN
-// (SELECT media_id
-// FROM Customers_Media
-// GROUP BY media_id
-// HAVING COUNT(*) > 1);
-
-// To select usernames from Customers table
-
-// SELECT username FROM Customers;
