@@ -55,17 +55,13 @@ app.get('/users', (request, response) => {
   .catch(console.error);
 })
 
-// route for query to database gathering all unique url_strings between customers
+// route for query to database gathering all matching media between customers
 app.get('/media-matches', (request, response) => {
-  client.query(`SELECT DISTINCT url_string
-  FROM Media
-  INNER JOIN Customers_Media
-  ON Media.media_id = Customers_Media.media_id
-  WHERE Customers_Media.media_id IN
-  (SELECT media_id
-  FROM Customers_Media
-  GROUP BY media_id
-  HAVING COUNT(*) > 1);`)
+  client.query(`SELECT url_string
+FROM Customers_Favorites
+WHERE customer_id = 1 OR customer_id = 2
+GROUP BY url_string
+HAVING COUNT(*) > 1;`)
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
@@ -144,9 +140,9 @@ function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS Customers_Favorites (
     media_id SERIAL PRIMARY KEY,
-    customer_id INT REFERENCES Customer(customer_id),
+    customer_id INT REFERENCES Customers(customer_id),
     url_string text,
-    CONSTRAINT queue_item UNIQUE (media_id, customer_id, url_string));
+    CONSTRAINT queue_item UNIQUE (customer_id, url_string)
     );`
   )
   // .then(loadMedia)
