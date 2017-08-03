@@ -156,13 +156,39 @@
 // });
 'use strict';
 
-//User Login Form .on('click')
-$('.icon-button, .userLoginForm').hide();
-$('.loginButton').on('click', function(event) {
+$('.userSignUpForm').on('submit', function(event){
+  console.log('ksdfjgdf')
   event.preventDefault();
-  $('.userLoginForm, .loginButton2').fadeIn(700);
-  $('.loginButton, .signUpButton').fadeOut(700);
+  let data = {}
+  data.username = event.target.userName.value
+  data.name = event.target.name.value
+  data.email = event.target.email.value
+  data.password = event.target.password.value
+  $.post('/customers', data)
+  .then(res => {
+    console.log(res)
+  })
+  console.log(data);
+})
 
+//User Login Form .on('click')
+// $('.icon-button, .userLoginForm').hide();
+$('.userLoginForm').on('submit', function(event) {
+  event.preventDefault();
+// $('.userLoginForm, .loginButton2').fadeIn(700);
+// $('.loginButton, .signUpButton').fadeOut(700);
+  let data = {}
+  data.username = event.target.loginInName.value
+  data.password = event.target.userPasswordExisting.value
+  $.get('/users')
+  .then(res => {
+  let user = res.filter(ele => {
+      return (ele.username === data.username && ele.password === data.password)
+    })
+    console.log(user)
+    localStorage.setItem('user', JSON.stringify(user[0]))
+  })
+  console.log(data);
 });
 
 //User Sign Up Form .on('click')
@@ -174,20 +200,20 @@ $('.signUpButton').on('click', function(event) {
 
 });
 
-$('.findAMovie, .hamburgerButtons').hide();
-$('.signUpButton2').on('click', function(event) {
-  event.preventDefault();
-  $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').fadeIn(700);
-  $('.userSignUpForm').fadeOut(700);
-});
+// $('.findAMovie, .hamburgerButtons').hide();
+// $('.userSignUpForm').on('submit', function(event) {
+//   event.preventDefault();
+//   $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').fadeIn(700);
+//   $('.userSignUpForm').fadeOut(700);
+// });
 
 //FINE A MOVIE
-$('.findAMovie, .hamburgerButtons').hide();
-$('.loginButton2').on('click', function(event) {
-  event.preventDefault();
-  $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').fadeIn(700);
-  $('.userLoginForm').fadeOut(700);
-});//END
+// $('.findAMovie, .hamburgerButtons').hide();
+// $('.loginButton2').on('click', function(event) {
+//   event.preventDefault();
+//   $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').fadeIn(700);
+//   $('.userLoginForm').fadeOut(700);
+// });//END
 
 //HAMBURGER MENU
 $('.icon-button').on('click', function(event) {
@@ -260,6 +286,12 @@ $('#searchMoviesButton').on('click', function(event) {
 });
 $(document).on('click','.movieDiv',function(){
   console.log(this.id);
+  let data = {
+    customer_id: JSON.parse(localStorage.user).customer_id,
+    url_string: this.id
+  }
+  $.post('/media', data)
+  .then(res => console.log(res))
 });
 
 

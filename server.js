@@ -50,7 +50,7 @@ app.get('/themoviedb', (req, res) => {
 
 // route for gathering all of the users from our Customers table
 app.get('/users', (request, response) => {
-  client.query(`SELECT username FROM Customers;`)
+  client.query(`SELECT * FROM Customers;`)
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
@@ -87,16 +87,16 @@ app.post('/customers', function(request, response) {
 
 // route for inserting customer_id for Customer and media_id for media Customer selects into Customers_Media table
 
-// app.post('/customers-media', function(request, response) {
-//   client.query(
-//     'INSERT INTO Customers_Media (customer_id, media_id) VALUES ($1,$2) ON CONFLICT DO NOTHING',
-//     [request.body.customer_id, request.body.media_id],
-//     function(err) {
-//       if (err) console.error(err)
-//       response.send('insert complete');
-//     }
-//   )
-// });
+app.post('/media', function(request, response) {
+  client.query(
+    'INSERT INTO Media (customer_id, url_string) VALUES ($1,$2) ON CONFLICT DO NOTHING',
+    [request.body.customer_id, request.body.url_string],
+    function(err) {
+      if (err) console.error(err)
+      response.send('insert complete');
+    }
+  )
+});
 
 loadDB();
 
@@ -144,19 +144,20 @@ function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS Media (
     media_id SERIAL PRIMARY KEY,
+    customer_id INTEGER REFERENCES Customers(customer_id),
     url_string text
     );`
   )
   // .then(loadMedia)
   .catch(console.error);
 
-  client.query(`
-    CREATE TABLE IF NOT EXISTS Customers_Media (
-    customer_id INT REFERENCES Customers(customer_id),
-    media_id INT REFERENCES Media(media_id),
-    CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
-  )
-  .catch(console.error);
+  // client.query(`
+  //   CREATE TABLE IF NOT EXISTS Customers_Media (
+  //   customer_id INT REFERENCES Customers(customer_id),
+  //   media_id INT REFERENCES Media(media_id),
+  //   CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
+  // )
+  // .catch(console.error);
 }
 
 //SQL query to create customer table.
