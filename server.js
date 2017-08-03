@@ -5,7 +5,7 @@ const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('superagent');
-// const requestProxy = require('express-request-proxy');
+const requestProxy = require('express-request-proxy');
 
 const PORT = process.env.PORT || 4000;
 const app = express();
@@ -55,13 +55,17 @@ app.get('/users', (request, response) => {
   .catch(console.error);
 })
 
-// route for query to database gathering all matching media between customers
+// route for query to database gathering all unique url_strings between customers
 app.get('/media-matches', (request, response) => {
-  client.query(`SELECT url_string
-FROM Customers_Favorites
-WHERE customer_id = 1 OR customer_id = 2
-GROUP BY url_string
-HAVING COUNT(*) > 1;`)
+  client.query(`SELECT DISTINCT url_string
+  FROM Media
+  INNER JOIN Customers_Media
+  ON Media.media_id = Customers_Media.media_id
+  WHERE Customers_Media.media_id IN
+  (SELECT media_id
+  FROM Customers_Media
+  GROUP BY media_id
+  HAVING COUNT(*) > 1);`)
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
@@ -138,13 +142,82 @@ function loadDB() {
   .catch(console.error);
 
   client.query(`
-    CREATE TABLE IF NOT EXISTS Customers_Favorites (
+    CREATE TABLE IF NOT EXISTS Media (
     media_id SERIAL PRIMARY KEY,
-    customer_id INT REFERENCES Customers(customer_id),
-    url_string text,
-    CONSTRAINT queue_item UNIQUE (customer_id, url_string)
+    url_string text
     );`
   )
   // .then(loadMedia)
   .catch(console.error);
+
+  client.query(`
+    CREATE TABLE IF NOT EXISTS Customers_Media (
+    customer_id INT REFERENCES Customers(customer_id),
+    media_id INT REFERENCES Media(media_id),
+    CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
+  )
+  .catch(console.error);
 }
+
+//SQL query to create customer table.
+
+// CREATE TABLE IF NOT EXISTS Customers (
+// customer_id SERIAL PRIMARY KEY,
+// username VARCHAR(100),
+// password VARCHAR(100),
+// name VARCHAR(255),
+// email VARCHAR(255)
+// );
+
+// SQL query to create media table
+
+// CREATE TABLE IF NOT EXISTS Media (
+// media_id SERIAL PRIMARY KEY,
+// url_string text
+// );
+
+// SQL query to insert a row into Customers
+
+// INSERT INTO Customers
+// (username, password, name, email)
+// VALUES ('carrieH','lilies','Carrie Hans', 'carriehans@gmail.com');
+
+// SQL query to insert a row into Media
+
+// INSERT INTO Media
+// (url_string)
+// VALUES ('https://www.themoviedb.org/tv/1399-game-of-thrones'
+// );
+
+// SQL Query to create associative table
+// Customers_Media, ensuring that a customer
+// cannot add the same title to their queue twice
+
+// CREATE TABLE IF NOT EXISTS Customers_Media (
+// customer_id INT REFERENCES Customers(customer_id),
+// media_id INT REFERENCES Media(media_id),
+// CONSTRAINT queue_item UNIQUE (customer_id, media_id));
+
+// Insert values into Customers_Media table
+
+// INSERT INTO Customers_Media
+// (customer_id, media_id)
+// VALUES (1,5);
+
+// Query selecting url_strings for all
+// queue items two customers
+// have in common
+
+// SELECT DISTINCT url_string
+// FROM Media
+// INNER JOIN Customers_Media
+// ON Media.media_id = Customers_Media.media_id
+// WHERE Customers_Media.media_id IN
+// (SELECT media_id
+// FROM Customers_Media
+// GROUP BY media_id
+// HAVING COUNT(*) > 1);
+
+// To select usernames from Customers table
+
+// SELECT username FROM Customers;
