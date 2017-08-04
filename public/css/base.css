@@ -1,0 +1,47 @@
+html {
+  /*background-color: #E2E1E3;*/
+  background-color: #FF5235;
+  background-image: url();
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.icon-button {
+  background-image: url();
+}
+
+.hamburgerButtons {
+
+}
+
+.findAMovie {
+  font-size: 2em;
+}
+
+.findAMovieLabel {
+  font-size: 1em;
+}
+
+.yourTitlesCap {
+  font-size: 4em;
+}
+
+.titlesMessage {
+  font-size: 3em;
+}
+
+.othersTitlesCap {
+  font-size: 4em;
+}
+
+.othersTitlesMessage {
+  font-size: 3em;
+}
+
+.aboutUsCap {
+  font-size: 4em;
+}
+
+.aboutUsPg {
+  font-size: 2em;
+}
