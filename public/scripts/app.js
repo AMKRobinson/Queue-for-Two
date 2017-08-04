@@ -309,6 +309,28 @@ $.get('/users', function(response) {
   });
 });
 
+// functionality for rendering current customer's queue to Your Titles
+const queueRender = function(customer) {
+  let template = Handlebars.compile($('#test-template').text());
+
+  return template(customer);
+};
+
+$('#yourTitlesButton').on('click', function(){
+  let data = {
+    customer_id: JSON.parse(localStorage.user).customer_id
+  }
+  console.log(data);
+
+  $.get('/user-queue', function(data) {
+    console.log(data);
+    data.forEach(function(element){
+      $('#your-titles').append(queueRender(element))
+      console.log(element.url_string);
+    });
+  });
+});
+
 // functionality for user queue comparison
 $('#customers').on('click', 'div', function(){
   console.log(this.id);

@@ -29,7 +29,6 @@ app.get('/others-titles', (request, response) => response.sendFile('index.html',
 app.get('/shared-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
 app.get('/about-us', (request, response) => response.sendFile('index.html', {root: './public'}));
 
-// This function is a proxy method that acts as middleware for our Github API request. We need it to send our request for the API and call back the response while obfuscating our GITHUB_TOKEN value. It receives a request from the client.
 
 app.get('/themoviedb', (req, res) => {
 
@@ -47,6 +46,16 @@ app.get('/themoviedb', (req, res) => {
   })
   .catch(console.error)
 });
+
+app.get('/user-queue', (request, response) => {
+  client.query(`
+    SELECT url_string
+    FROM Media
+    WHERE customer_id = 1;
+    `)
+    .then(result => response.send(result.rows))
+    .catch(console.error);
+})
 
 // route for gathering all of the users from our Customers table
 app.get('/users', (request, response) => {
@@ -79,18 +88,18 @@ app.get('/users', (request, response) => {
 app.get('/media-matches', (request, response) => {
   console.log(request);
   client.query(`
-    SELECT A.url_string
-    FROM Media A, Media B
-    WHERE A.customer_id = $1
-    AND B.customer_id = $2
-    AND A.url_string = B.url_string
-    ORDER BY A.url_string;
+    SELECT url_string
+    FROM Media
+    WHERE customer_id = $1
+    AND customer_id = $2
+    ORDER BY url_string;
     `,
     [
       request.body.other_customer_id,
       request.body.current_customer_id
     ]
   )
+  .then(data => response.json(data))
 })
 
 
