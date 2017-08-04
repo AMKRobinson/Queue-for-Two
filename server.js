@@ -26,7 +26,7 @@ app.get('/login', (request, response) => response.sendFile('index.html', {root: 
 app.get('/find-movie', (request, response) => response.sendFile('index.html', {root: './public'}));
 app.get('/your-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
 app.get('/others-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/shared-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
+// app.get('/media-matches', (request, response) => response.sendFile('index.html', {root: './public'}));
 app.get('/about-us', (request, response) => response.sendFile('index.html', {root: './public'}));
 
 // This function is a proxy method that acts as middleware for our Github API request. We need it to send our request for the API and call back the response while obfuscating our GITHUB_TOKEN value. It receives a request from the client.
@@ -77,7 +77,7 @@ app.get('/users', (request, response) => {
 // HAVING COUNT(*) > 1;
 
 app.get('/media-matches', (request, response) => {
-  console.log(request);
+  console.log('whyyyyy', request.params[0]);
   client.query(`
     SELECT A.url_string
     FROM Media A, Media B
@@ -87,13 +87,47 @@ app.get('/media-matches', (request, response) => {
     ORDER BY A.url_string;
     `,
     [
-      request.body.other_customer_id,
-      request.body.current_customer_id
+      request.query.other_customer_id,
+      request.query.current_customer_id
     ]
   )
+  // client.query(`SELECT * FROM Media;`)
+  .then(data => response.json(data))
+  // request
+  //   .get('https://api.themoviedb.org/3/' )
+  //   .query({
+  //     api_key: process.env.THEMOVIEDB_TOKEN,
+  //   })
+  // .then(data => {
+  //   console.log('bite me', response.body)
+  //   response.json(data.body)
+  // })
+  // .catch(console.error)
 })
 
+// app.get('/themoviedb', (req, res) => {
+//
+//   request
+//   .get('https://api.themoviedb.org/3/search/multi')
+//   .query({
+//     language: 'en-US',
+//     page: 1,
+//     include_adult: false,
+//     api_key: process.env.THEMOVIEDB_TOKEN,
+//     query: req.query.data
+//   })
+//   .then(data => {
+//     res.json(data.body)
+//   })
+//   .catch(console.error)
+// });
 
+// route for gathering all of the users from our Customers table
+app.get('/users', (request, response) => {
+  client.query(`SELECT * FROM Customers;`)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+})
 // route for adding new Customer data to DATABASE
 app.post('/customers', function(request, response) {
   client.query(
