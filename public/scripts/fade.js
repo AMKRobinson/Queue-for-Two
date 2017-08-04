@@ -20,7 +20,7 @@ $('.signUpButton').on('click', function(event) {
 
 // $('.findAMovie, .hamburgerButtons').hide();
 $('.signUpButton2').on('click', function(event) {
-  event.preventDefault();
+  // event.preventDefault();
   $('.userSignUpForm').fadeOut(700);
   $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').delay(700).fadeIn(700);
 });
