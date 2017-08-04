@@ -23,7 +23,7 @@ $('.userLoginForm, .loginButton2').fadeIn(700);
   data.password = event.target.userPasswordExisting.value
   $.get('/users')
   .then(res => {
-  let user = res.filter(ele => {
+    let user = res.filter(ele => {
       return (ele.username === data.username && ele.password === data.password)
     })
     console.log(user)
@@ -91,6 +91,28 @@ $.get('/users', function(response) {
   });
 });
 
+// functionality for rendering current customer's queue to Your Titles
+const queueRender = function(customer) {
+  let template = Handlebars.compile($('#test-template').text());
+
+  return template(customer);
+};
+
+$('#yourTitlesButton').on('click', function(){
+  let data = {
+    customer_id: JSON.parse(localStorage.user).customer_id
+  }
+  console.log(data);
+
+  $.get('/user-queue', function(data) {
+    console.log(data);
+    data.forEach(function(element){
+      $('#your-titles').append(queueRender(element))
+      console.log(element.url_string);
+    });
+  });
+});
+
 // functionality for user queue comparison
 $('#customers').on('click', '.customer', function(event){
   event.preventDefault();
@@ -103,19 +125,27 @@ $('#customers').on('click', '.customer', function(event){
 
   var template = Handlebars.compile($('.handlebarTemplate').text());
 
-//this shortens the date which is in YYYY-MM-DD to just YYYY
-  // Handlebars.registerHelper('tvD', function(date) {
-  //   if (date && date.length > 4)
-  //     return date.substring(0,4);
-  //   return date;
-  // });
-  console.log('data ', data);
+  //this shortens the date which is in YYYY-MM-DD to just YYYY
+    Handlebars.registerHelper('tvD', function(date) {
+      if (date && date.length > 4)
+        return date.substring(0,4);
+      return date;
+    });
 
+  console.log('data ', data);
+// content in this functionality = response in the other func
   $.get('/media-matches', data, function (response) {
   Promise.all(response.rows.map(function(apiURL) {
       return $.get('/themoviedb2', apiURL)
     })).then(function(content){
-      console.log(content)
-    });
+        content.forEach(function(element){
+          console.log(element);
+          var medias = {
+            movieid: element.id, media_type: element.media_type, movieTitle: element.title, showTitle: element.name, tvDate: element.first_air_date, movieDate: element.release_date, poster_path: element.poster_path, overview: element.overview, votes: element.vote_count
+          }
+          console.log(medias);
+          $('#customers').append(template(medias));
+        })
+      })
   });
 });
