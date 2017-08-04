@@ -1,5 +1,6 @@
 'use strict';
 
+
 $('#about-us, .findAMovie, .yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage, .icon-button, .userLoginForm, .userSignUpForm, .hamburgerButtons, .findAMovie, .titlesMessage, .yourTitlesCap, .noTitlesMessage, .othersTitlesCap, .aboutUsPg, .aboutUsCap, #customers').hide();
 
 $('.loginButton').on('click', function(event) {
@@ -36,7 +37,7 @@ $('.icon-button').on('click', function(event) {
 //YOUR TITLES
 $('#yourTitlesButton').on('click', function(event) {
   event.preventDefault();
-  $('.findAMovie, .othersTitlesCap, .othersTitlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
+  $('.findAMovie, .othersTitlesCap, .othersTitlesMessage, .aboutUsCap, .aboutUsPg, #about-us').fadeOut(700);
   $('.yourTitlesCap, .titlesMessage').delay(700).fadeIn(700);
 });//END
 

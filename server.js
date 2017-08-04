@@ -92,8 +92,6 @@ app.post('/customers', function(request, response) {
   )
 });
 
-// route for inserting customer_id for Customer and media_id for media Customer selects into Customers_Media table
-
 app.post('/media', function(request, response) {
   client.query(
     'INSERT INTO Media (customer_id, url_string) VALUES ($1,$2) ON CONFLICT DO NOTHING',
@@ -134,7 +132,6 @@ function loadDB() {
     email VARCHAR(255)
     );`
   )
-  // .then(loadCustomers)
   .catch(console.error);
 
   client.query(`

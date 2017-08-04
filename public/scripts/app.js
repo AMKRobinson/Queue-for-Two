@@ -1,6 +1,7 @@
 'use strict';
 
 $('.userSignUpForm').on('submit', function(event){
+  console.log('ksdfjgdf')
   event.preventDefault();
   let data = {}
   data.username = event.target.userName.value
@@ -115,6 +116,7 @@ $('#customers').on('click', '.customer', function(event){
     Promise.all(response.rows.map(function(apiURL) {
       return $.get('/themoviedb2', apiURL)
     })).then(function(content){
+
       content.forEach(function(element){
         console.log(element);
         var medias = {
