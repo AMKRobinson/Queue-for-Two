@@ -193,7 +193,11 @@ $('#customers').on('click', '.customer', function(event){
   console.log('data ', data);
 
   $.get('/media-matches', data, function (response) {
-    console.log(response);
+  Promise.all(response.rows.map(function(apiURL) {
+      return $.get('/themoviedb2', apiURL)
+    })).then(function(content){
+      console.log(content)
+    });
     // let weird = (results) => {
     //   console.log('results: ',results);
     //   results.map(response => {
