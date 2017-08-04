@@ -159,17 +159,17 @@ app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
 
 //////// ** DATABASE LOADERS ** ////////
 ////////////////////////////////////////
-// function loadCustomers() {
-//   fs.readFile('./public/data/customers.json', (err, fd) => {
-//     JSON.parse(fd.toString()).forEach(ele => {
-//       client.query(
-//         'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
-//         [ele.username, ele.password, ele.name, ele.email]
-//       )
-//       .catch(console.error);
-//     })
-//   })
-// }
+function loadCustomers() {
+  fs.readFile('./public/data/customers.json', (err, fd) => {
+    JSON.parse(fd.toString()).forEach(ele => {
+      client.query(
+        'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
+        [ele.username, ele.password, ele.name, ele.email]
+      )
+      .catch(console.error);
+    })
+  })
+}
 
 // function loadMedia() {
 //   fs.readFile('./public/data/media.json', (err, fd) => {
