@@ -19,16 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
-// This route, the app.get('/', etc) route, is a route that will send a request to fetch index.html's content for the web app. It receives a request from the HTML triggered by the user.
-app.get('/', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/sign-up', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/login', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/find-movie', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/your-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/others-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
-// app.get('/media-matches', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/about-us', (request, response) => response.sendFile('index.html', {root: './public'}));
-
 // This function is a proxy method that acts as middleware for our Github API request. We need it to send our request for the API and call back the response while obfuscating our GITHUB_TOKEN value. It receives a request from the client.
 
 app.get('/themoviedb', (req, res) => {
@@ -54,27 +44,6 @@ app.get('/users', (request, response) => {
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
-//promise.all
-// route for query to database gathering all unique url_strings between customers
-// app.get('/media-matches', (request, response) => {
-//   client.query(`SELECT DISTINCT url_string
-//   FROM Media
-//   INNER JOIN Customers_Media
-//   ON Media.media_id = Customers_Media.media_id
-//   WHERE Customers_Media.media_id IN
-//   (SELECT media_id
-//   FROM Customers_Media
-//   GROUP BY media_id
-//   HAVING COUNT(*) > 1);`)
-//   .then(result => response.send(result.rows))
-//   .catch(console.error);
-// })
-
-// SELECT url_string
-// FROM Media
-// WHERE customer_id = $1 OR customer_id = $2
-// GROUP BY url_string
-// HAVING COUNT(*) > 1;
 
 app.get('/media-matches', (request, response) => {
   console.log('whyyyyy', request.params[0]);
@@ -91,18 +60,7 @@ app.get('/media-matches', (request, response) => {
       request.query.current_customer_id
     ]
   )
-  // client.query(`SELECT * FROM Media;`)
   .then(data => response.json(data))
-  // request
-  //   .get('https://api.themoviedb.org/3/' )
-  //   .query({
-  //     api_key: process.env.THEMOVIEDB_TOKEN,
-  //   })
-  // .then(data => {
-  //   console.log('bite me', response.body)
-  //   response.json(data.body)
-  // })
-  // .catch(console.error)
 })
 
 app.get('/themoviedb2', (req, res) => {
@@ -119,12 +77,6 @@ app.get('/themoviedb2', (req, res) => {
   .catch(console.error)
 });
 
-// route for gathering all of the users from our Customers table
-app.get('/users', (request, response) => {
-  client.query(`SELECT * FROM Customers;`)
-  .then(result => response.send(result.rows))
-  .catch(console.error);
-})
 // route for adding new Customer data to DATABASE
 app.post('/customers', function(request, response) {
   client.query(
@@ -159,24 +111,13 @@ app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
 
 //////// ** DATABASE LOADERS ** ////////
 ////////////////////////////////////////
+// Run this function once, calling it in loadDB() as seen below, to load pre-populated users, if you so choose
 // function loadCustomers() {
 //   fs.readFile('./public/data/customers.json', (err, fd) => {
 //     JSON.parse(fd.toString()).forEach(ele => {
 //       client.query(
 //         'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
 //         [ele.username, ele.password, ele.name, ele.email]
-//       )
-//       .catch(console.error);
-//     })
-//   })
-// }
-
-// function loadMedia() {
-//   fs.readFile('./public/data/media.json', (err, fd) => {
-//     JSON.parse(fd.toString()).forEach(ele => {
-//       client.query(
-//         'INSERT INTO Media(url_string) VALUES($1) ON CONFLICT DO NOTHING',
-//         [ele.author, ele.authorUrl]
 //       )
 //       .catch(console.error);
 //     })
@@ -204,14 +145,5 @@ function loadDB() {
     CONSTRAINT queue_item UNIQUE (customer_id, url_string)
     );`
   )
-  // .then(loadMedia)
   .catch(console.error);
-
-  // client.query(`
-  //   CREATE TABLE IF NOT EXISTS Customers_Media (
-  //   customer_id INT REFERENCES Customers(customer_id),
-  //   media_id INT REFERENCES Media(media_id),
-  //   CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
-  // )
-  // .catch(console.error);
 }

@@ -17,7 +17,6 @@ $('.userSignUpForm').on('submit', function(event){
 $('.userLoginForm').on('submit', function(event) {
   event.preventDefault();
 
-  // $('.userLoginForm, .loginButton2').fadeIn(700);
   let data = {}
   data.username = event.target.loginInName.value
   data.password = event.target.userPasswordExisting.value
@@ -30,47 +29,6 @@ $('.userLoginForm').on('submit', function(event) {
     localStorage.setItem('user', JSON.stringify(user[0]))
   })
   console.log(data);
-});
-
-//User Sign Up Form .on('click')
-$('.userSignUpForm').hide();
-$('.signUpButton').on('click', function(event) {
-  event.preventDefault();
-  $('.userSignUpForm, .signUpButton2').fadeIn(700);
-  $('.loginButton, .signUpButton').fadeOut(700);
-
-});
-
-//HAMBURGER MENU
-$('.icon-button').on('click', function(event) {
-  event.preventDefault();
-  $('.hamburgerButtons').fadeToggle(10000);
-});//END
-
-
-//YOUR TITLES
-$('.yourTitlesCap, .titlesMessage').hide();
-$('#yourTitlesButton').on('click', function(event) {
-  event.preventDefault();
-  $('.findAMovie, #customers, #about-us').fadeOut(700);
-  $('.yourTitlesCap, .titlesMessage').fadeIn(700);
-});//END
-
-//OTHERS' TITLES
-$('#customers, .noTitlesMessage, #about-us').hide();
-$('#othersTitlesButton').on('click', function(event) {
-  event.preventDefault();
-  $('.findAMovie, .yourTitlesCap, .titlesMessage, #about-us').fadeOut(700);
-  $('#customers').fadeIn(700);
-  //Haven't yet made a condition for the .noTitlesMessage to be shown yet
-});//END
-
-//ABOUT US
-$('#about-us').hide();
-$('#aboutUsButton').on('click', function(event) {
-  event.preventDefault();
-  $('.findAMovie, .yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage').fadeOut(700);
-  $('#about-us').fadeIn(700);
 });
 
 //SEARCH MOVIES
@@ -132,28 +90,6 @@ $.get('/users', function(response) {
   });
 });
 
-// functionality for rendering current customer's queue to Your Titles
-const queueRender = function(customer) {
-  let template = Handlebars.compile($('#test-template').text());
-
-  return template(customer);
-};
-
-$('#yourTitlesButton').on('click', function(){
-  let data = {
-    customer_id: JSON.parse(localStorage.user).customer_id
-  }
-  console.log(data);
-
-  $.get('/user-queue', function(data) {
-    console.log(data);
-    data.forEach(function(element){
-      $('#your-titles').append(queueRender(element))
-      console.log(element.url_string);
-    });
-  });
-});
-
 // functionality for user queue comparison
 $('#customers').on('click', '.customer', function(event){
   $('.movieDiv').html('');
@@ -163,38 +99,30 @@ $('#customers').on('click', '.customer', function(event){
     other_customer_id: parseInt(this.id),
     current_customer_id: JSON.parse(localStorage.user).customer_id
   }
-  // var query = $('#movieSearch').val();
 
   var template = Handlebars.compile($('.handlebarTemplate').text());
 
   //this shortens the date which is in YYYY-MM-DD to just YYYY
-    Handlebars.registerHelper('tvD', function(date) {
-      if (date && date.length > 4)
-        return date.substring(0,4);
-      return date;
-    });
+  Handlebars.registerHelper('tvD', function(date) {
+    if (date && date.length > 4)
+      return date.substring(0,4);
+    return date;
+  });
 
   console.log('data ', data);
 // content in this functionality = response in the other func
   $.get('/media-matches', data, function (response) {
-  Promise.all(response.rows.map(function(apiURL) {
+    Promise.all(response.rows.map(function(apiURL) {
       return $.get('/themoviedb2', apiURL)
     })).then(function(content){
-        content.forEach(function(element){
-          console.log(element);
-          var medias = {
-            movieid: element.id, media_type: element.media_type, movieTitle: element.title, showTitle: element.name, tvDate: element.first_air_date, movieDate: element.release_date, poster_path: element.poster_path, overview: element.overview, votes: element.vote_count
-          }
-          console.log(medias);
-          $('#customers').append(template(medias));
-        })
+      content.forEach(function(element){
+        console.log(element);
+        var medias = {
+          movieid: element.id, media_type: element.media_type, movieTitle: element.title, showTitle: element.name, tvDate: element.first_air_date, movieDate: element.release_date, poster_path: element.poster_path, overview: element.overview, votes: element.vote_count
+        }
+        console.log(medias);
+        $('#customers').append(template(medias));
       })
+    })
   });
-});
-
-//RETURN TO FIND A MOVIE
-$('#findMovieButton').on('click', function(event) {
-  event.preventDefault();
-  $('.yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage, #about-us').fadeOut(700);
-  $('.findAMovie').fadeIn(700);
 });
