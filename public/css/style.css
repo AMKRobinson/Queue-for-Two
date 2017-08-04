@@ -1,0 +1,30 @@
+
+
+.posters {
+  max-width: 100%;
+  min-width: 170px;
+  height: 250px;
+  display:block;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.movieDiv {
+  display: inline-block;
+  margin: 5px;
+  max-width: 170px;
+}
+
+.posters:hover {
+  transition-duration: .15s;
+  border: 3px solid red;
+}
+
+#title {
+  text-align: center;
+  font-size: 12px;
+}
+
+.movieDiv:target {
+    color:red;
+}
