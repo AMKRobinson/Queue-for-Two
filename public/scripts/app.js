@@ -295,6 +295,11 @@ $(document).on('click','.movieDiv',function(){
   .then(res => console.log(res))
 });
 
+$(document).on('click','.posters', function(){
+  $(this).css('border','solid');
+  $(this).css('border-color','red');
+});
+
 // functionality for rendering customers to Others' Titles
 const render = function(customer) {
   let template = Handlebars.compile($('#customer-template').text());
