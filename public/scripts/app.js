@@ -15,12 +15,8 @@ $('.userSignUpForm').on('submit', function(event){
   console.log(data);
 })
 
-//User Login Form .on('click')
-// $('.icon-button, .userLoginForm').hide();
 $('.userLoginForm').on('submit', function(event) {
   event.preventDefault();
-// $('.userLoginForm, .loginButton2').fadeIn(700);
-// $('.loginButton, .signUpButton').fadeOut(700);
   let data = {}
   data.username = event.target.loginInName.value
   data.password = event.target.userPasswordExisting.value
@@ -43,21 +39,6 @@ $('.signUpButton').on('click', function(event) {
   $('.loginButton, .signUpButton').fadeOut(700);
 
 });
-
-// $('.findAMovie, .hamburgerButtons').hide();
-// $('.userSignUpForm').on('submit', function(event) {
-//   event.preventDefault();
-//   $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').fadeIn(700);
-//   $('.userSignUpForm').fadeOut(700);
-// });
-
-//FINE A MOVIE
-// $('.findAMovie, .hamburgerButtons').hide();
-// $('.loginButton2').on('click', function(event) {
-//   event.preventDefault();
-//   $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').fadeIn(700);
-//   $('.userLoginForm').fadeOut(700);
-// });//END
 
 //HAMBURGER MENU
 $('.icon-button').on('click', function(event) {
@@ -209,31 +190,6 @@ $('#customers').on('click', '.customer', function(event){
       })
   });
 });
-
-// $.get('/themoviedb', {data:query}).done(function (response) {
-//   console.log(query);
-//   console.log(response);
-//   let weird = (results) => {
-//     response.results.map(response => {
-//       var info = {movieid: response.id, media_type: response.media_type, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
-//       console.log(info)
-//       $('#out').append(template(info))
-//     })
-//   }
-//   weird(response);
-// });
-
-// $.get('./public/data/customers.json', {data: encodeURI(query)}).done(function (response) {
-//   console.log(response);
-//   let customers_data = (results) => {
-//     response.results.map(response => {
-//       var info = {username: response.username, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
-//       console.log(info)
-//       $('#customers').append(template(info))
-//     })
-//   }
-//   customers_data(response);
-// });
 
 //RETURN TO FIND A MOVIE
 $('#findMovieButton').on('click', function(event) {
