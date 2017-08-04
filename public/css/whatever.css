@@ -13,3 +13,12 @@ width: 100%;
 background: #551033;
 margin-bottom: 2em;
 }
+
+.about-img {
+  max-width: 20%;
+}
+
+.about-p {
+  margin-left: 25%;
+  margin-right: 25%;
+}
