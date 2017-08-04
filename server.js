@@ -54,27 +54,6 @@ app.get('/users', (request, response) => {
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
-//promise.all
-// route for query to database gathering all unique url_strings between customers
-// app.get('/media-matches', (request, response) => {
-//   client.query(`SELECT DISTINCT url_string
-//   FROM Media
-//   INNER JOIN Customers_Media
-//   ON Media.media_id = Customers_Media.media_id
-//   WHERE Customers_Media.media_id IN
-//   (SELECT media_id
-//   FROM Customers_Media
-//   GROUP BY media_id
-//   HAVING COUNT(*) > 1);`)
-//   .then(result => response.send(result.rows))
-//   .catch(console.error);
-// })
-
-// SELECT url_string
-// FROM Media
-// WHERE customer_id = $1 OR customer_id = $2
-// GROUP BY url_string
-// HAVING COUNT(*) > 1;
 
 app.get('/media-matches', (request, response) => {
   console.log('whyyyyy', request.params[0]);
@@ -91,18 +70,7 @@ app.get('/media-matches', (request, response) => {
       request.query.current_customer_id
     ]
   )
-  // client.query(`SELECT * FROM Media;`)
   .then(data => response.json(data))
-  // request
-  //   .get('https://api.themoviedb.org/3/' )
-  //   .query({
-  //     api_key: process.env.THEMOVIEDB_TOKEN,
-  //   })
-  // .then(data => {
-  //   console.log('bite me', response.body)
-  //   response.json(data.body)
-  // })
-  // .catch(console.error)
 })
 
 app.get('/themoviedb2', (req, res) => {
@@ -140,8 +108,6 @@ app.post('/customers', function(request, response) {
   )
 });
 
-// route for inserting customer_id for Customer and media_id for media Customer selects into Customers_Media table
-
 app.post('/media', function(request, response) {
   client.query(
     'INSERT INTO Media (customer_id, url_string) VALUES ($1,$2) ON CONFLICT DO NOTHING',
@@ -170,19 +136,6 @@ function loadCustomers() {
     })
   })
 }
-
-// function loadMedia() {
-//   fs.readFile('./public/data/media.json', (err, fd) => {
-//     JSON.parse(fd.toString()).forEach(ele => {
-//       client.query(
-//         'INSERT INTO Media(url_string) VALUES($1) ON CONFLICT DO NOTHING',
-//         [ele.author, ele.authorUrl]
-//       )
-//       .catch(console.error);
-//     })
-//   })
-// }
-
 function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS Customers (
@@ -193,7 +146,6 @@ function loadDB() {
     email VARCHAR(255)
     );`
   )
-  // .then(loadCustomers)
   .catch(console.error);
 
   client.query(`
@@ -204,14 +156,5 @@ function loadDB() {
     CONSTRAINT queue_item UNIQUE (customer_id, url_string)
     );`
   )
-  // .then(loadMedia)
   .catch(console.error);
-
-  // client.query(`
-  //   CREATE TABLE IF NOT EXISTS Customers_Media (
-  //   customer_id INT REFERENCES Customers(customer_id),
-  //   media_id INT REFERENCES Media(media_id),
-  //   CONSTRAINT queue_item UNIQUE (customer_id, media_id));`
-  // )
-  // .catch(console.error);
 }

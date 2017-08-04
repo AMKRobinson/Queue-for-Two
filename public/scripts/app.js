@@ -1,6 +1,7 @@
 'use strict';
 
 $('.userSignUpForm').on('submit', function(event){
+  console.log('ksdfjgdf')
   event.preventDefault();
   let data = {}
   data.username = event.target.userName.value
@@ -16,8 +17,6 @@ $('.userSignUpForm').on('submit', function(event){
 
 $('.userLoginForm').on('submit', function(event) {
   event.preventDefault();
-
-$('.userLoginForm, .loginButton2').fadeIn(700);
   let data = {}
   data.username = event.target.loginInName.value
   data.password = event.target.userPasswordExisting.value
@@ -180,6 +179,7 @@ $('#customers').on('click', '.customer', function(event){
   Promise.all(response.rows.map(function(apiURL) {
       return $.get('/themoviedb2', apiURL)
     })).then(function(content){
+      console.log(content)
         content.forEach(function(element){
           console.log(element);
           var medias = {
