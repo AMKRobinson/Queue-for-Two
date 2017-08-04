@@ -54,7 +54,7 @@ app.get('/users', (request, response) => {
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
-
+//promise.all
 // route for query to database gathering all unique url_strings between customers
 // app.get('/media-matches', (request, response) => {
 //   client.query(`SELECT DISTINCT url_string
@@ -105,22 +105,19 @@ app.get('/media-matches', (request, response) => {
   // .catch(console.error)
 })
 
-// app.get('/themoviedb', (req, res) => {
-//
-//   request
-//   .get('https://api.themoviedb.org/3/search/multi')
-//   .query({
-//     language: 'en-US',
-//     page: 1,
-//     include_adult: false,
-//     api_key: process.env.THEMOVIEDB_TOKEN,
-//     query: req.query.data
-//   })
-//   .then(data => {
-//     res.json(data.body)
-//   })
-//   .catch(console.error)
-// });
+app.get('/themoviedb2', (req, res) => {
+  console.log(req.query)
+  request
+  .get('https://api.themoviedb.org/3/' + req.query.url_string)
+  .query({
+    api_key: process.env.THEMOVIEDB_TOKEN,
+  })
+  .then(data => {
+    console.log(data.body)
+    res.json(data.body)
+  })
+  .catch(console.error)
+});
 
 // route for gathering all of the users from our Customers table
 app.get('/users', (request, response) => {
