@@ -7,7 +7,7 @@
   <meta charset="utf-8">
 
   <title>Queue for Two</title>
-  <meta name="description" content="">
+  <meta name="description" content="Queue for Two web app">
   <meta name="author" content="">
 
   <!-- Mobile Specific Metas
@@ -117,14 +117,14 @@
 
 <!--Hamburger Buttons-->
 <div class="hamburgerButtons">
-  <button id="yourTitlesButton">YOUR TITLES</button>
+  <!-- <button id="yourTitlesButton">YOUR TITLES</button> -->
   <button id="othersTitlesButton">OTHERS' TITLES</button>
   <button id="aboutUsButton">ABOUT US</button>
   <button id="findMovieButton">MOVIE SEARCH</button>
 </div>
 
   <!--Find A Movie Form-->
-  <div id="searchmovie"
+  <div id="searchmovie" class="tab-content">
   <form class="findAMovie">Find Something To Watch
     <label id="findAMovieLabel">
        Title:
@@ -134,6 +134,7 @@
       <button type="submit" id="searchMoviesButton">SEARCH</button>
     </div>
   </form>
+  <div id="out"></div>
 </div>
 
 
@@ -149,10 +150,7 @@
     <h6 class="othersTitlesCap">OTHERS' TITLES</h6>
     <p class="othersTitlesMessage">Click User To View Your Shared Titles</p>
     <p class="noTitlesMessage">YOU HAVE NO TITLES!</p>
-    <div id="comparison"></div>
   </section>
-
-  <!--SHARED TITLES-->
 
   <!--ABOUT US-->
   <div id="about-us">
@@ -170,8 +168,6 @@
     <p class="aboutUsPg">Aaron Bruce</p>
       <p class="about-p">Originally, I was a professional scuba diver, but recently became interested in VR and specifically VR games, however, I am also interested in the practical applications of the virtual world and its simulations. I am hoping to one-day be able to work for large VR companies and maybe even augmented reality. I know I still have much to learn, but i am confident in  my abilities.</p>
 </div>
-
-  <div id="out"></div>
 </main>
   <!-- vendor scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
