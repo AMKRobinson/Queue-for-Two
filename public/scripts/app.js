@@ -182,7 +182,7 @@ $('.userLoginForm').on('submit', function(event) {
   data.password = event.target.userPasswordExisting.value
   $.get('/users')
   .then(res => {
-  let user = res.filter(ele => {
+    let user = res.filter(ele => {
       return (ele.username === data.username && ele.password === data.password)
     })
     console.log(user)
