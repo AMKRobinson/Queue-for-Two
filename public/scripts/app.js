@@ -44,7 +44,7 @@ $('.signUpButton').on('click', function(event) {
 //HAMBURGER MENU
 $('.icon-button').on('click', function(event) {
   event.preventDefault();
-  $('.hamburgerButtons').fadeToggle(700);
+  $('.hamburgerButtons').fadeToggle(10000);
 });//END
 
 
@@ -52,25 +52,25 @@ $('.icon-button').on('click', function(event) {
 $('.yourTitlesCap, .titlesMessage').hide();
 $('#yourTitlesButton').on('click', function(event) {
   event.preventDefault();
-  $('.findAMovie, #customers, .aboutUsCap, .aboutUsPg').fadeOut(700);
+  $('.findAMovie, #customers, #about-us').fadeOut(700);
   $('.yourTitlesCap, .titlesMessage').fadeIn(700);
 });//END
 
 //OTHERS' TITLES
-$('#customers, .noTitlesMessage, .aboutUsCap, .aboutUsPg').hide();
+$('#customers, .noTitlesMessage, #about-us').hide();
 $('#othersTitlesButton').on('click', function(event) {
   event.preventDefault();
-  $('.findAMovie, .yourTitlesCap, .titlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
+  $('.findAMovie, .yourTitlesCap, .titlesMessage, #about-us').fadeOut(700);
   $('#customers').fadeIn(700);
   //Haven't yet made a condition for the .noTitlesMessage to be shown yet
 });//END
 
 //ABOUT US
-$('.aboutUsCap, .aboutUsPg').hide();
+$('#about-us').hide();
 $('#aboutUsButton').on('click', function(event) {
   event.preventDefault();
   $('.findAMovie, .yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage').fadeOut(700);
-  $('.aboutUsCap, .aboutUsPg').fadeIn(700);
+  $('#about-us').fadeIn(700);
 });
 
 //SEARCH MOVIES
@@ -156,6 +156,7 @@ $('#yourTitlesButton').on('click', function(){
 
 // functionality for user queue comparison
 $('#customers').on('click', '.customer', function(event){
+  $('.movieDiv').html('');
   event.preventDefault();
   console.log(this.id);
   let data = {
@@ -194,6 +195,6 @@ $('#customers').on('click', '.customer', function(event){
 //RETURN TO FIND A MOVIE
 $('#findMovieButton').on('click', function(event) {
   event.preventDefault();
-  $('.yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
+  $('.yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage, #about-us').fadeOut(700);
   $('.findAMovie').fadeIn(700);
 });
