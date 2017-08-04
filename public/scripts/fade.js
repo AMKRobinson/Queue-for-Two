@@ -1,7 +1,7 @@
 'use strict';
 
 //User Login Form .on('click')
-$('.icon-button, .userLoginForm, .userSignUpForm, .hamburgerButtons, .findAMovie, .titlesMessage, .yourTitlesCap, .noTitlesMessage, .othersTitlesCap, .aboutUsPg, .aboutUsCap').hide();
+$('.icon-button, .userLoginForm, .userSignUpForm, .hamburgerButtons, .findAMovie, .titlesMessage, .yourTitlesCap, .noTitlesMessage, .othersTitlesCap, .aboutUsPg, .aboutUsCap, #customers').hide();
 // $('.icon-button, .userLoginForm').hide();
 $('.loginButton').on('click', function(event) {
   event.preventDefault();
@@ -30,13 +30,13 @@ $('.signUpButton2').on('click', function(event) {
 $('.loginButton2').on('click', function(event) {
   event.preventDefault();
   $('.userLoginForm').fadeOut(700);
-  $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').delay(700).fadeIn(700);
+  $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton, #out').delay(700).fadeIn(700);
 });//END
 
 //HAMBURGER MENU
 $('.icon-button').on('click', function(event) {
   event.preventDefault();
-  // $('.hamburgerButtons').fadeToggle(700);
+  $('.hamburgerButtons').fadeToggle(700);
 });//END
 
 
@@ -52,8 +52,8 @@ $('#yourTitlesButton').on('click', function(event) {
 // $('.othersTitlesCap, .othersTitlesMessage, .noTitlesMessage, .aboutUsCap, .aboutUsPg').hide();
 $('#othersTitlesButton').on('click', function(event) {
   event.preventDefault();
-  $('.findAMovie, .yourTitlesCap, .titlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
-  $('.othersTitlesCap, .othersTitlesMessage').delay(700).fadeIn(700);
+  $('.findAMovie, .yourTitlesCap, .titlesMessage, .aboutUsCap, .aboutUsPg, #out').fadeOut(700);
+  $('.othersTitlesCap, .othersTitlesMessage, #customers').delay(700).fadeIn(700);
   //Haven't yet made a condition for the .noTitlesMessage to be shown yet
 });//END
 
@@ -61,7 +61,7 @@ $('#othersTitlesButton').on('click', function(event) {
 // $('.aboutUsCap, .aboutUsPg').hide();
 $('#aboutUsButton').on('click', function(event) {
   event.preventDefault();
-  $('.findAMovie, .yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage').fadeOut(700);
+  $('.findAMovie, .yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage, #customers').fadeOut(700);
   $('.aboutUsCap, .aboutUsPg').delay(700).fadeIn(700);
 });
 
@@ -73,6 +73,6 @@ $('#searchMoviesButton').on('click', function(event) {
 //RETURN TO FIND A MOVIE
 $('#findMovieButton').on('click', function(event) {
   event.preventDefault();
-  $('.yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
+  $('.yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage, .aboutUsCap, .aboutUsPg, #customers').fadeOut(700);
   $('.findAMovie').delay(700).fadeIn(700);
 });

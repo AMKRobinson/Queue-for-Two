@@ -1,7 +1,6 @@
 'use strict';
 
 $('.userSignUpForm').on('submit', function(event){
-  console.log('ksdfjgdf')
   event.preventDefault();
   let data = {}
   data.username = event.target.userName.value
@@ -15,12 +14,10 @@ $('.userSignUpForm').on('submit', function(event){
   console.log(data);
 })
 
-//User Login Form .on('click')
-// $('.icon-button, .userLoginForm').hide();
 $('.userLoginForm').on('submit', function(event) {
   event.preventDefault();
-// $('.userLoginForm, .loginButton2').fadeIn(700);
-// $('.loginButton, .signUpButton').fadeOut(700);
+
+$('.userLoginForm, .loginButton2').fadeIn(700);
   let data = {}
   data.username = event.target.loginInName.value
   data.password = event.target.userPasswordExisting.value
@@ -33,62 +30,6 @@ $('.userLoginForm').on('submit', function(event) {
     localStorage.setItem('user', JSON.stringify(user[0]))
   })
   console.log(data);
-});
-
-//User Sign Up Form .on('click')
-$('.userSignUpForm').hide();
-$('.signUpButton').on('click', function(event) {
-  event.preventDefault();
-  $('.userSignUpForm, .signUpButton2').fadeIn(700);
-  $('.loginButton, .signUpButton').fadeOut(700);
-
-});
-
-// $('.findAMovie, .hamburgerButtons').hide();
-// $('.userSignUpForm').on('submit', function(event) {
-//   event.preventDefault();
-//   $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').fadeIn(700);
-//   $('.userSignUpForm').fadeOut(700);
-// });
-
-//FINE A MOVIE
-// $('.findAMovie, .hamburgerButtons').hide();
-// $('.loginButton2').on('click', function(event) {
-//   event.preventDefault();
-//   $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton').fadeIn(700);
-//   $('.userLoginForm').fadeOut(700);
-// });//END
-
-//HAMBURGER MENU
-$('.icon-button').on('click', function(event) {
-  event.preventDefault();
-  $('.hamburgerButtons').fadeToggle(700);
-});//END
-
-
-//YOUR TITLES
-$('.yourTitlesCap, .titlesMessage').hide();
-$('#yourTitlesButton').on('click', function(event) {
-  event.preventDefault();
-  $('.findAMovie, #customers, .aboutUsCap, .aboutUsPg').fadeOut(700);
-  $('.yourTitlesCap, .titlesMessage').fadeIn(700);
-});//END
-
-//OTHERS' TITLES
-$('#customers, .noTitlesMessage, .aboutUsCap, .aboutUsPg').hide();
-$('#othersTitlesButton').on('click', function(event) {
-  event.preventDefault();
-  $('.findAMovie, .yourTitlesCap, .titlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
-  $('#customers').fadeIn(700);
-  //Haven't yet made a condition for the .noTitlesMessage to be shown yet
-});//END
-
-//ABOUT US
-$('.aboutUsCap, .aboutUsPg').hide();
-$('#aboutUsButton').on('click', function(event) {
-  event.preventDefault();
-  $('.findAMovie, .yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage').fadeOut(700);
-  $('.aboutUsCap, .aboutUsPg').fadeIn(700);
 });
 
 //SEARCH MOVIES
@@ -176,33 +117,5 @@ $('#customers').on('click', '.customer', function(event){
     })).then(function(content){
       console.log(content)
     });
-    // let weird = (results) => {
-    //   console.log('results: ',results);
-    //   results.map(response => {
-    //     var info = {movieid: response.id, media_type: response.media_type, movieTitle: response.title, showTitle: response.name, tvDate: response.first_air_date, movieDate: response.release_date, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
-    //     console.log(info)
-    //     $('#customers').append(template(info))
-    //   })
-    // }
-    // weird(response);
   });
-});
-
-// $.get('./public/data/customers.json', {data: encodeURI(query)}).done(function (response) {
-//   console.log(response);
-//   let customers_data = (results) => {
-//     response.results.map(response => {
-//       var info = {username: response.username, poster_path: response.poster_path, overview: response.overview, votes: response.vote_count}
-//       console.log(info)
-//       $('#customers').append(template(info))
-//     })
-//   }
-//   customers_data(response);
-// });
-
-//RETURN TO FIND A MOVIE
-$('#findMovieButton').on('click', function(event) {
-  event.preventDefault();
-  $('.yourTitlesCap, .titlesMessage, .othersTitlesCap, .othersTitlesMessage, .aboutUsCap, .aboutUsPg').fadeOut(700);
-  $('.findAMovie').fadeIn(700);
 });
