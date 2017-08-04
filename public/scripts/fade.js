@@ -27,8 +27,9 @@ $('.signUpButton2').on('click', function(event) {
 
 //FINE A MOVIE
 // $('.findAMovie, .hamburgerButtons').hide();
-$('.loginButton2').on('click', function(event) {
-  event.preventDefault();
+$('.loginButton2').on('click', function() {
+  // event.preventDefault();
+  console.log()
   $('.userLoginForm').fadeOut(700);
   $('.findAMovie, .findAMovieLabel, .icon-button, .searchMoviesButton, #out').delay(700).fadeIn(700);
 });//END

@@ -17,7 +17,7 @@ $('.userSignUpForm').on('submit', function(event){
 $('.userLoginForm').on('submit', function(event) {
   event.preventDefault();
 
-$('.userLoginForm, .loginButton2').fadeIn(700);
+  // $('.userLoginForm, .loginButton2').fadeIn(700);
   let data = {}
   data.username = event.target.loginInName.value
   data.password = event.target.userPasswordExisting.value
@@ -26,7 +26,7 @@ $('.userLoginForm, .loginButton2').fadeIn(700);
     let user = res.filter(ele => {
       return (ele.username === data.username && ele.password === data.password)
     })
-    console.log(user)
+    console.log('string signed in user', user)
     localStorage.setItem('user', JSON.stringify(user[0]))
   })
   console.log(data);
