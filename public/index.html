@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Your page title here :)</title>
+  <title>Queue for Two</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -34,7 +34,7 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href="scripts/images/favicon.png">
 
   <!-- Handlebar Template for Search
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -52,6 +52,11 @@
   </script>
   <script type="text/x-handlebars-template" id="customer-template">
     <div class="customer" id="{{customer_id}}">
+      <p>{{username}}</p>
+    </div>
+  </script>
+  <script type="text/x-handlebars-template" id="test-template">
+    <div class="url" id="{{url_string}}">
       <p>{{username}}</p>
     </div>
   </script>
@@ -129,14 +134,17 @@
 
 
   <!--YOUR TITLES-->
-  <h5 class="yourTitlesCap">YOUR TITLES</h5>
-  <p class="titlesMessage">Collect Your To-Watch List On This Page.</p>
+  <section id="your-titles">
+    <h5 class="yourTitlesCap">YOUR TITLES</h5>
+    <p class="titlesMessage">Collect Your To-Watch List On This Page.</p>
+  <section>
 
   <!--OTHERS' TITLES-->
   <section id="customers">
     <h6 class="othersTitlesCap">OTHERS' TITLES</h6>
     <p class="othersTitlesMessage">Click User To View Your Shared Titles</p>
     <p class="noTitlesMessage">YOU HAVE NO TITLES!</p>
+    <div id="comparison"></div>
   </section>
 
   <!--SHARED TITLES-->
