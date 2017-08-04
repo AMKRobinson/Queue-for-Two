@@ -19,16 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
-// This route, the app.get('/', etc) route, is a route that will send a request to fetch index.html's content for the web app. It receives a request from the HTML triggered by the user.
-app.get('/', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/sign-up', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/login', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/find-movie', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/your-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/others-titles', (request, response) => response.sendFile('index.html', {root: './public'}));
-// app.get('/media-matches', (request, response) => response.sendFile('index.html', {root: './public'}));
-app.get('/about-us', (request, response) => response.sendFile('index.html', {root: './public'}));
-
 // This function is a proxy method that acts as middleware for our Github API request. We need it to send our request for the API and call back the response while obfuscating our GITHUB_TOKEN value. It receives a request from the client.
 
 app.get('/themoviedb', (req, res) => {
@@ -87,12 +77,6 @@ app.get('/themoviedb2', (req, res) => {
   .catch(console.error)
 });
 
-// route for gathering all of the users from our Customers table
-app.get('/users', (request, response) => {
-  client.query(`SELECT * FROM Customers;`)
-  .then(result => response.send(result.rows))
-  .catch(console.error);
-})
 // route for adding new Customer data to DATABASE
 app.post('/customers', function(request, response) {
   client.query(
@@ -125,17 +109,19 @@ app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
 
 //////// ** DATABASE LOADERS ** ////////
 ////////////////////////////////////////
-function loadCustomers() {
-  fs.readFile('./public/data/customers.json', (err, fd) => {
-    JSON.parse(fd.toString()).forEach(ele => {
-      client.query(
-        'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
-        [ele.username, ele.password, ele.name, ele.email]
-      )
-      .catch(console.error);
-    })
-  })
-}
+// Run this function once, calling it in loadDB() as seen below, to load pre-populated users, if you so choose
+// function loadCustomers() {
+//   fs.readFile('./public/data/customers.json', (err, fd) => {
+//     JSON.parse(fd.toString()).forEach(ele => {
+//       client.query(
+//         'INSERT INTO Customers(username, password, name, email) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING',
+//         [ele.username, ele.password, ele.name, ele.email]
+//       )
+//       .catch(console.error);
+//     })
+//   })
+// }
+
 function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS Customers (
